@@ -5,6 +5,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
+import com.korealm.kvantage.ui.App
 import kvantage.composeapp.generated.resources.Res
 import kvantage.composeapp.generated.resources.favicon
 import org.jetbrains.compose.resources.painterResource

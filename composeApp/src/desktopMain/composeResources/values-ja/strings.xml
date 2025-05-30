@@ -8,4 +8,6 @@
     <string name="enable">有効にする</string>
     <string name="rapid_charge">急速充電</string>
     <string name="percent_icon">バッテリーパーセント表示</string>
+    <string name="settings">設定</string>
+    <string name="settings_button_content_description">設定ボタン</string>
 </resources>

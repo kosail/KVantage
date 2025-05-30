@@ -1,19 +1,20 @@
-package com.korealm.kvantage
+package com.korealm.kvantage.ui
 
 import AnimatedColorfulBackground
 import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Air
 import androidx.compose.material.icons.rounded.Bolt
-import androidx.compose.material.icons.rounded.Done
 import androidx.compose.material.icons.rounded.EnergySavingsLeaf
 import androidx.compose.material.icons.rounded.Percent
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -37,25 +38,56 @@ fun App() {
     val themeState = rememberAppThemeState()
     val iconTheme = Icons.Rounded
 
-    GruvboxTheme(darkTheme = true) {
-        AnimatedColorfulBackground(modifier = Modifier.fillMaxSize().blur(3.dp))
+    var isAnimatedBackground by remember { mutableStateOf(true) }
+    var isSettingsOpen by remember { mutableStateOf(false) }
 
-        Surface (
+    GruvboxTheme(darkTheme = themeState.isDarkTheme) {
+
+        if (isAnimatedBackground) {
+            AnimatedColorfulBackground(modifier = Modifier.fillMaxSize().blur(3.dp))
+        } else {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)
+            )
+        }
+
+        Surface(
             shape = RoundedCornerShape(10.dp),
-            color = MaterialTheme.colorScheme.surface.copy(alpha = 0.7F),
+            color = if (isAnimatedBackground) MaterialTheme.colorScheme.surface.copy(alpha = 0.7F) else MaterialTheme.colorScheme.surfaceVariant,
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
             modifier = Modifier.fillMaxSize().padding(16.dp)
         ) {
-            Column (
+            Column(
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxSize()
             ) {
-                Image(
-                    painterResource(Res.drawable.logo),
-                    contentDescription = "KVantage Logo",
-                    modifier = Modifier.padding(top = 12.dp, bottom = 0.dp).size(180.dp)
-                )
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    IconButton(
+                        onClick = { isSettingsOpen = !isSettingsOpen },
+                        modifier = Modifier
+                            .padding(top = 15.dp, end = 15.dp)
+                            .align(Alignment.TopEnd)
+                    ) {
+                        Icon(
+                            imageVector = iconTheme.Settings,
+                            contentDescription = stringResource(Res.string.settings_button_content_description),
+                            tint = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.size(35.dp)
+                        )
+                    }
+
+                    Image(
+                        painterResource(Res.drawable.logo),
+                        contentDescription = "KVantage Logo",
+                        modifier = Modifier.padding(top = 12.dp, bottom = 0.dp).size(180.dp)
+                    )
+                }
 
                 PowerProfilerSection(iconTheme, Modifier)
                 Spacer(Modifier.height(20.dp))
@@ -67,6 +99,17 @@ fun App() {
 
                 RapidCharge(modifier = Modifier)
             }
+        }
+
+        if (isSettingsOpen) {
+            Settings(
+                isSettingsOpen = isSettingsOpen,
+                onDismissRequest = { isSettingsOpen = !isSettingsOpen },
+                isDarkTheme = themeState.isDarkTheme,
+                onThemeToggleAction = { themeState.toggleTheme() },
+                isAnimatedBackground = isAnimatedBackground,
+                onAnimatedBackgroundToggleAction = { isAnimatedBackground = !isAnimatedBackground }
+            )
         }
     }
 }
@@ -86,7 +129,7 @@ fun PowerProfilerSection(
             modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 8.dp)
         )
 
-        SingleChoiceSegmentedButtonRow (
+        SingleChoiceSegmentedButtonRow(
             modifier = Modifier.padding(horizontal = 26.dp).heightIn(min = 48.dp),
         ) {
             var selectedIndex by remember { mutableIntStateOf(0) }
@@ -143,7 +186,7 @@ fun BatteryThreshold(
         modifier = modifier.padding(top = 12.dp)
     )
 
-    Row (
+    Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = modifier.fillMaxWidth().padding(top = 3.dp, start = 20.dp, end = 20.dp)
@@ -159,7 +202,13 @@ fun BatteryThreshold(
             value = percentage.toString(),
             onValueChange = {
                 val value = it.toIntOrNull() ?: 0
-                percentage = if (value > 100) { 100 } else if (value < 0) { 0 } else { it.toIntOrNull() ?: 0 }
+                percentage = if (value > 100) {
+                    100
+                } else if (value < 0) {
+                    0
+                } else {
+                    it.toIntOrNull() ?: 0
+                }
             },
             enabled = checked,
             placeholder = { percentage.toString() },
@@ -180,9 +229,11 @@ fun BatteryThreshold(
             ),
             modifier = Modifier
                 .width(100.dp)
-                .border(width = 1.dp,
+                .border(
+                    width = 1.dp,
                     color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f),
-                    shape = RoundedCornerShape(15.dp))
+                    shape = RoundedCornerShape(15.dp)
+                )
         )
     }
 
@@ -193,7 +244,7 @@ fun BatteryThreshold(
             text = stringResource(Res.string.battery_threshold_warning),
             fontSize = 14.sp,
             color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp,top = 5.dp).width(450.dp)
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 5.dp).width(450.dp)
         )
     }
 }
@@ -208,7 +259,8 @@ fun RapidCharge(
         text = Res.string.rapid_charge,
         checked = checked,
         onCheckedChange = { checked = !checked },
-        modifier = modifier)
+        modifier = modifier
+    )
 }
 
 @Composable

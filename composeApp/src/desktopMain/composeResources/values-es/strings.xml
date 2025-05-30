@@ -8,4 +8,6 @@
     <string name="enable">Activar</string>
     <string name="rapid_charge">Carga rápida</string>
     <string name="percent_icon">Ícono de porcentaje</string>
+    <string name="settings">Configuración</string>
+    <string name="settings_button_content_description">Botón de configuración</string>
 </resources>
