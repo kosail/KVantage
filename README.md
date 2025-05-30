@@ -9,7 +9,7 @@
 
 ## 🚀 Current Status
 
-- **Development Stage:** Early Development (UI prototypes completed, backend control system in progress). By now, I think I will rely on the wonderful project [batmanager](https://github.com/LevitatingBusinessMan/batmanager) written in Rust as the backend. If not, then I will probably rely on pure Kotlin (I'll figure that our later).
+- **Development Stage:** NOT USABLE. No backend implemented yet. It is still on early Development (UI prototypes completed, backend control system in progress). By now, I think I will rely on the wonderful project [batmanager](https://github.com/LevitatingBusinessMan/batmanager) written in Rust as the backend. If not, then I will probably rely on pure Kotlin (I'll figure that our later).
 - **Functionality:** The GUI allows toggling performance profiles, battery thresholds, and rapid charge settings. System-level integration is being tested on Lenovo devices.
 - **Usability:** Designed to be intuitive, light, and visually appealing, following minimal principles and Gruvbox theming.
 - **Known Limitations:** System compatibility is limited to Lenovo laptops that expose firmware interfaces via `/sys`, `acpi`, or `ideapad-laptop` kernel module. Some features may require root permissions or external CLI tools.
@@ -18,10 +18,10 @@
 
 ## 🎯 Features (Planned & Implemented)
 
-❌ **Toggle Performance Profiles** (e.g., Powersave, Performance, Intelligent Cooling)  
-❌ **Battery Charge Threshold Management**  (AKA limit battery charge at 80% to improve battery lifespan)  
-❌ **Rapid Charge Enable/Disable**  
-❌ **Dark and Light Themes with Gruvbox Palette**  
+⚠️ **Toggle Performance Profiles** (e.g., Powersave, Performance, Intelligent Cooling)  
+⚠️ **Battery Charge Threshold Management**  (AKA limit battery charge at 80% to improve battery lifespan)  
+⚠️ **Rapid Charge Enable/Disable**  
+✅ **Dark and Light Themes with Gruvbox Palette**  
 ❌ **System Detection for Compatibility**  
 ❌ **Native image packaging** (Planned)
 
