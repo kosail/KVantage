@@ -25,12 +25,7 @@
 ❌ **System Detection for Compatibility**  
 ❌ **Native image packaging** (Planned)
 
----
-
-## 🛠️ Technologies Used
-
-- **Kotlin** – Primary language
-- **Compose Multiplatform Desktop** – UI framework
+![KVantage screenshots](repo_images/themes.png)
 
 ---
 

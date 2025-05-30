@@ -41,8 +41,8 @@ fun AnimatedColorfulBackground(modifier: Modifier = Modifier) {
 
     // Colors (using more subtle tertiary palette)
     val colors = listOf(
-        MaterialTheme.colorScheme.primary,
-        MaterialTheme.colorScheme.secondary,
+        MaterialTheme.colorScheme.primaryContainer,
+        MaterialTheme.colorScheme.secondaryContainer,
         MaterialTheme.colorScheme.tertiary
     )
 
