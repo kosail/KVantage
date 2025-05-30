@@ -62,7 +62,7 @@ fun SettingsScreen(
                 SwitchWithText(
                     text = Res.string.dark_mode,
                     checked = isDarkTheme,
-                    onCheckedChange = { onThemeToggleAction },
+                    onCheckedChange = { onThemeToggleAction() },
                     checkedTrackColor = MaterialTheme.colorScheme.tertiary,
                     modifier = Modifier
                 )
@@ -72,7 +72,7 @@ fun SettingsScreen(
                 SwitchWithText(
                     text = Res.string.animated_background,
                     checked = isAnimatedBackground,
-                    onCheckedChange = { onAnimatedBackgroundToggleAction },
+                    onCheckedChange = { onAnimatedBackgroundToggleAction() },
                     checkedTrackColor = MaterialTheme.colorScheme.tertiary,
                     modifier = Modifier
                 )
