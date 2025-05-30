@@ -37,12 +37,12 @@ fun App() {
     val themeState = rememberAppThemeState()
     val iconTheme = Icons.Rounded
 
-    GruvboxTheme(darkTheme = themeState.isDarkTheme) {
+    GruvboxTheme(darkTheme = true) {
         AnimatedColorfulBackground(modifier = Modifier.fillMaxSize().blur(3.dp))
 
         Surface (
             shape = RoundedCornerShape(10.dp),
-            color = if (themeState.isDarkTheme) MaterialTheme.colorScheme.surface.copy(alpha = 0.85F) else MaterialTheme.colorScheme.surface.copy(alpha = 0.7F),
+            color = MaterialTheme.colorScheme.surface.copy(alpha = 0.7F),
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
             modifier = Modifier.fillMaxSize().padding(16.dp)
         ) {
