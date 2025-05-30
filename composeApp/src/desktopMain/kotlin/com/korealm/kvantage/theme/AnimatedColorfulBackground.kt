@@ -19,7 +19,7 @@ import kotlin.math.max
 fun AnimatedColorfulBackground(modifier: Modifier = Modifier) {
     // 1) Create a reusable, infinite transition for animating floats
     val infiniteTransition = rememberInfiniteTransition()
-    val duration = 15000
+    val duration = 11000
 
     // 2) Animate a float from 0f→1f→0f over 15 seconds
     val offset1 = infiniteTransition.animateFloat(

@@ -42,13 +42,19 @@ fun App() {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background)
+                    .background(
+                        if (themeState.isDarkTheme) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.surface
+                    )
             )
         }
 
         Surface(
             shape = RoundedCornerShape(10.dp),
-            color = if (isAnimatedBackground) MaterialTheme.colorScheme.surface.copy(alpha = 0.7F) else MaterialTheme.colorScheme.surfaceVariant,
+            color = if (isAnimatedBackground) {
+                MaterialTheme.colorScheme.surface.copy(alpha = 0.7F)
+            } else {
+                if (themeState.isDarkTheme) MaterialTheme.colorScheme.background else MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5F)
+            },
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
             modifier = Modifier.fillMaxSize().padding(16.dp)
         ) {
@@ -76,7 +82,7 @@ fun App() {
                     }
 
                     Image(
-                        painterResource(Res.drawable.logo),
+                        painterResource(if (themeState.isDarkTheme) Res.drawable.logo_light else Res.drawable.logo),
                         contentDescription = "KVantage Logo",
                         modifier = Modifier.padding(top = 12.dp, bottom = 0.dp).size(180.dp)
                     )
