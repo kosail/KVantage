@@ -5,10 +5,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.unit.dp
 import kotlin.math.max
 
 // This was a hard one. I'll try to comment out the steps
@@ -49,7 +51,8 @@ fun AnimatedColorfulBackground(modifier: Modifier = Modifier) {
     // 4) One full-screen Box, drawing two radial gradients
     Box(
         modifier = modifier
-            .fillMaxSize()
+//            .fillMaxSize() // Commented out because in that way I can decide it's size later on.
+//            .blur(radius = 3.dp) // Same with blur
             .drawBehind {
                 // Calculate pixel dimensions
                 val w = size.width
