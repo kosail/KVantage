@@ -1,7 +1,6 @@
 package com.korealm.kvantage.ui
 
 import AnimatedColorfulBackground
-import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -10,24 +9,18 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Air
-import androidx.compose.material.icons.rounded.Bolt
-import androidx.compose.material.icons.rounded.EnergySavingsLeaf
-import androidx.compose.material.icons.rounded.Percent
-import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.korealm.kvantage.theme.GruvboxTheme
 import com.korealm.kvantage.state.rememberAppThemeState
+import com.korealm.kvantage.theme.GruvboxTheme
 import kvantage.composeapp.generated.resources.*
-import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -90,20 +83,17 @@ fun App() {
                 }
 
                 PowerProfilerSection(iconTheme, Modifier)
-                Spacer(Modifier.height(20.dp))
-                HorizontalDivider()
+                HorizontalDivider(modifier = Modifier.padding(top = 10.dp, bottom = 10.dp))
 
                 BatteryThreshold(iconTheme, Modifier)
-                Spacer(Modifier.height(20.dp))
-                HorizontalDivider()
+                HorizontalDivider(modifier = Modifier.padding(top = 10.dp, bottom = 10.dp))
 
                 RapidCharge(modifier = Modifier)
             }
         }
 
         if (isSettingsOpen) {
-            Settings(
-                isSettingsOpen = isSettingsOpen,
+            SettingsScreen(
                 onDismissRequest = { isSettingsOpen = !isSettingsOpen },
                 isDarkTheme = themeState.isDarkTheme,
                 onThemeToggleAction = { themeState.toggleTheme() },
@@ -261,39 +251,4 @@ fun RapidCharge(
         onCheckedChange = { checked = !checked },
         modifier = modifier
     )
-}
-
-@Composable
-fun SwitchWithText(
-    @StringRes text: StringResource,
-    checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit,
-    checkedTrackColor: Color = MaterialTheme.colorScheme.tertiary,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 12.dp)
-    ) {
-        Text(
-            text = stringResource(text),
-            fontSize = 20.sp,
-            color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier
-        )
-
-        Switch(
-            checked = checked,
-            onCheckedChange = onCheckedChange,
-            modifier = Modifier.padding(end = 9.dp).scale(1.1F),
-            colors = SwitchDefaults.colors(
-                uncheckedThumbColor = MaterialTheme.colorScheme.surface,
-                uncheckedTrackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f),
-                checkedTrackColor = checkedTrackColor,
-            )
-        )
-    }
 }

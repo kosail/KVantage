@@ -48,4 +48,6 @@ Contributions are welcome! Feel free to fork the repository and submit pull requ
 ---
 > **Note:** KVantage is a personal learning project and is not affiliated with Lenovo or any other brand or product.
 ---
-KVantage Copyright (c) 2025  Kosail
+KVantage Copyright © 2025, kosail 
+<br>
+With love, from Honduras.

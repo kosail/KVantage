@@ -10,4 +10,9 @@
     <string name="percent_icon">バッテリーパーセント表示</string>
     <string name="settings">設定</string>
     <string name="settings_button_content_description">設定ボタン</string>
+    <string name="dark_mode">ダークモード</string>
+    <string name="animated_background">アニメーション背景</string>
+    <string name="copyright">KVantage ©</string>
+    <string name="with_love">ホンジュラスより愛を込めて。</string>
+    <string name="signature">korealmのkosail</string>
 </resources>
