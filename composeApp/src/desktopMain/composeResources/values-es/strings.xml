@@ -1,0 +1,11 @@
+<resources>
+    <string name="performance_profile">Perfil de energía</string>
+    <string name="power_profile_performance">Alto rendimiento</string>
+    <string name="power_profile_balanced">Balanceado</string>
+    <string name="power_profile_powersave">Ahorro de energía</string>
+    <string name="battery_threshold">Limitar batería</string>
+    <string name="battery_threshold_warning">Toma en cuenta que personalizar el valor límite de la batería no está presente en todas las laptops Lenovo. Es función exclusiva de algunos modelos.</string>
+    <string name="enable">Activar</string>
+    <string name="rapid_charge">Carga rápida</string>
+    <string name="percent_icon">Ícono de porcentaje</string>
+</resources>

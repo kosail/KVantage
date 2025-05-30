@@ -1,0 +1,11 @@
+<resources>
+    <string name="performance_profile">パフォーマンスプロファイル</string>
+    <string name="power_profile_performance">ハイパフォーマンス</string>
+    <string name="power_profile_balanced">インテリジェント冷却</string>
+    <string name="power_profile_powersave">省電力モード</string>
+    <string name="battery_threshold">バッテリー充電制限</string>
+    <string name="battery_threshold_warning">※注意：充電制限値はすべてのLenovoノートPCで変更できません。一部の上位モデルのみ対応しています。</string>
+    <string name="enable">有効にする</string>
+    <string name="rapid_charge">急速充電</string>
+    <string name="percent_icon">バッテリーパーセント表示</string>
+</resources>

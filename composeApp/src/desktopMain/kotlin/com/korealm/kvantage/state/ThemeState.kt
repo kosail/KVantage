@@ -1,4 +1,4 @@
-package com.korealm.kvantage.theme
+package com.korealm.kvantage.state
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.*
