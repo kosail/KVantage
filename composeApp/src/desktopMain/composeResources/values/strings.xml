@@ -1,0 +1,11 @@
+<resources>
+    <string name="performance_profile">Performance Profile</string>
+    <string name="power_profile_performance">Performance</string>
+    <string name="power_profile_balanced">Intelligent Cooling</string>
+    <string name="power_profile_powersave">Power saving</string>
+    <string name="battery_threshold">Battery Threshold</string>
+    <string name="battery_threshold_warning">Please, consider that the threshold value cannot be customized in all Lenovo laptops. It's a premium feature of some models.</string>
+    <string name="enable">Enable</string>
+    <string name="rapid_charge">Rapid Charge</string>
+    <string name="percent_icon">Percent Icon</string>
+</resources>
