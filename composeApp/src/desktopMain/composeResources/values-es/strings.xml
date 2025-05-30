@@ -10,4 +10,8 @@
     <string name="percent_icon">Ícono de porcentaje</string>
     <string name="settings">Configuración</string>
     <string name="settings_button_content_description">Botón de configuración</string>
+    <string name="dark_mode">Modo oscuro</string>
+    <string name="animated_background">Animar fondo</string>
+    <string name="copyright">KVantage ©</string>
+    <string name="with_love">Con amor, desde Honduras.</string>
 </resources>
