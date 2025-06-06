@@ -1,7 +1,7 @@
 # KVantage
 ### Minimal control center for Lenovo laptops on Linux, inspired by GTK and macOS aesthetics.
 
-![KVantage logo](repo_images/logo_light.png)
+![KVantage logo](repo_images/main_logo.png)
 
 **KVantage** is a sleek and minimal desktop app designed to provide users of Lenovo laptops running Linux with easy access to essential device settings. Inspired by the clean aesthetics of **GNOME (GTK)** and **macOS**, KVantage is built with **Kotlin + Compose Multiplatform for Desktop**, and aims to offer just the core features users care about. No bloat.
 
