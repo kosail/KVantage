@@ -10,7 +10,7 @@
 ## 🚀 Current Status
 - **Development Stage**: The GUI and the backend are completed at 100%. The only functions that is not yet implemented is the option to set a customized battery threshold. By now, it is hardcoded to the default value (which is 80%).
 - **Functionality:** The GUI allows toggling performance profiles, battery thresholds, and rapid charge settings.
-- **Usability:** Designed to be intuitive, light, and visually appealing, following minimal principles and Gruvbox theming. More themes may be implemented in the future.
+- **Usability:** Designed to be intuitive, light, and visually appealing, following minimal principles and Gruvbox theming. More themes will be implemented in the future.
 - **Known Limitations:**
   1. System compatibility is limited to Lenovo laptops that expose the ACPI interface using the acpi_call kernel module (`/proc/acpi/call`).
   2. The app needs root access to perform the ACPI read and writes at `/proc/acpi/call`. This is a limitation that cannot be bypassed, but it was minimized by asking for the password once for the entire execution of the program, and isolating that mentioned root access to just the backend server.
@@ -19,12 +19,12 @@
 
 ## 🎯 Features (Planned & Implemented)
 
-[//]: # (> **Note:** ⚠️  Means partially implemented.)
+> **Note:** ⚠️  Means partially implemented.
 
 ✅ **Toggle Performance Profiles** (e.g., Powersave, Performance, Intelligent Cooling)  
 ✅ **Battery Charge Threshold Management**  (AKA limit battery charge at 80% to improve battery lifespan)  
 ✅ **Rapid Charge Enable/Disable**  
-✅ **Dark and Light Themes with Gruvbox Palette**  
+⚠️**Multiple dark and light themes (by now only gruvbox is supported)**   
 ❌ **Custom threshold for battery conservation**  
 ❌ **Tray icon support**  
 ❌ **Native image packaging** (Planned)
