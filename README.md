@@ -8,27 +8,25 @@
 ---
 
 ## 🚀 Current Status
-#### Development Stage:
-The graphical interface is already completed at 100%, and the backend (which is the one that actually makes the changes) is completed at 100% too. Right now, I'm working on linking the GUI to the daemon to make them work together.
-<br><br>
-At first I thought of using the wonderful project [batmanager, by LevitatingBusinessMan](https://github.com/LevitatingBusinessMan/batmanager) which is exactly what this program aims for, but in CLI format. However, I know no Rust and I couldn't make it work on NixOS (dynamic linking executable issues), and it is my main Linux distro.<br><br>
-At the end, due some limitations of the JVM and Kotlin Native, I decided to reimplement batmanager in Golang. More about this in the [backend section below](#backend).
-<br><br>
-But going back to the main topic, the current status:
-- **Functionality:** The GUI allows toggling performance profiles, battery thresholds, and rapid charge settings. System-level integration is being tested on Lenovo devices.
+- **Development Stage**: The GUI and the backend are completed at 100%. The only functions that is not yet implemented is the option to set a customized battery threshold. By now, it is hardcoded to the default value (which is 80%).
+- **Functionality:** The GUI allows toggling performance profiles, battery thresholds, and rapid charge settings.
 - **Usability:** Designed to be intuitive, light, and visually appealing, following minimal principles and Gruvbox theming. More themes may be implemented in the future.
-- **Known Limitations:** System compatibility is limited to Lenovo laptops that expose firmware interfaces via `/sys`, `acpi`, or `ideapad-laptop` kernel module. Some features may require root permissions or external CLI tools.
+- **Known Limitations:**
+  1. System compatibility is limited to Lenovo laptops that expose the ACPI interface using the acpi_call kernel module (`/proc/acpi/call`).
+  2. The app needs root access to perform the ACPI read and writes at `/proc/acpi/call`. This is a limitation that cannot be bypassed, but it was minimized by asking for the password once for the entire execution of the program, and isolating that mentioned root access to just the backend server.
 
 ---
 
 ## 🎯 Features (Planned & Implemented)
-> **Note:** ⚠️  Means partially implemented.
 
-⚠️ **Toggle Performance Profiles** (e.g., Powersave, Performance, Intelligent Cooling)  
-⚠️ **Battery Charge Threshold Management**  (AKA limit battery charge at 80% to improve battery lifespan)  
-⚠️ **Rapid Charge Enable/Disable**  
+[//]: # (> **Note:** ⚠️  Means partially implemented.)
+
+✅ **Toggle Performance Profiles** (e.g., Powersave, Performance, Intelligent Cooling)  
+✅ **Battery Charge Threshold Management**  (AKA limit battery charge at 80% to improve battery lifespan)  
+✅ **Rapid Charge Enable/Disable**  
 ✅ **Dark and Light Themes with Gruvbox Palette**  
-❌ **System Detection for Compatibility**  
+❌ **Custom threshold for battery conservation**  
+❌ **Tray icon support**  
 ❌ **Native image packaging** (Planned)
 
 ![Animated Background ON with Gruvbox theme](repo_images/gruvbox_theme_1.png)
@@ -42,6 +40,9 @@ But going back to the main topic, the current status:
 
 ---
 ##  Backend
+At first, I thought of using the wonderful project [batmanager, by LevitatingBusinessMan](https://github.com/LevitatingBusinessMan/batmanager) which is exactly what this program aims for, but in CLI format. However, I know no Rust. I couldn't make it work on NixOS (dynamic linking executable issues), and it is my main Linux distro.<br><br>
+At the end, due some limitations of the JVM and Kotlin Native, I decided to reimplement batmanager in Golang. More about this in the [backend section below](#backend).
+
 To keep things clean, I will maintain only the GUI app here, and kvand (the backend daemon) in another repository. In this repo you'll only find the native kvand executable. To see kvand source code, comments and notes about it, please check the [daemon's repository here at my GitHub profile](https://github.com/kosail/Kvand).
 
 
