@@ -42,7 +42,7 @@ But going back to the main topic, the current status:
 
 ---
 ##  Backend
-To keep things clean, I will maintain only the GUI app here, and kvand (the backend daemon) in another repository. In this repo you'll only find the native kbatd executable. To see kbatd source code, comments and notes about it, please check the [daemon's repository here at my GitHub profile](https://github.com/kosail/kbatd).
+To keep things clean, I will maintain only the GUI app here, and kvand (the backend daemon) in another repository. In this repo you'll only find the native kvand executable. To see kvand source code, comments and notes about it, please check the [daemon's repository here at my GitHub profile](https://github.com/kosail/Kvand).
 
 
 ---
