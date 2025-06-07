@@ -1,5 +1,8 @@
 package com.korealm.kvantage.state
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
@@ -24,8 +27,7 @@ class KvandClient private constructor(
                 val writer = BufferedWriter(OutputStreamWriter(process.outputStream))
                 val reader = BufferedReader(InputStreamReader(process.inputStream))
 
-
-                // IMPORTANT: This will block the app until the Handshake between the backend and the frontend
+                // IMPORTANT: This will block the app until the Handshake between the backend, and the frontend
                 // is completed. The GUI will wait for "READY" from the backend.
                 while (true) {
                     val line = reader.readLine() ?: handleBackendDeath()
@@ -42,15 +44,12 @@ class KvandClient private constructor(
         private fun handleBackendDeath(): Nothing {
             // I did not find a way to show a nice Compose window that notifies the user an error has occurred.
             // Thus, I'll use Swing as a fallback.
-
-//            javax.swing.SwingUtilities.invokeLater {
                 javax.swing.JOptionPane.showMessageDialog(
                     null,
                     "Failed to initialize the backend service.\nRoot permissions are required to run this application.",
                     "Critical Error",
                     javax.swing.JOptionPane.ERROR_MESSAGE
                 )
-//            }
 
             throw IllegalStateException("Backend service failed to start (likely root permission issue)")
         }
@@ -62,6 +61,10 @@ class KvandClient private constructor(
         writer.newLine()
         writer.flush()
 
-        return reader.readLine() ?: "-0x1"
+        val response = reader.readLine()
+        println("[GUI → kbatd] $command")
+        println("[GUI ← kbatd] $response")
+
+        return response ?: "ERROR"
     }
 }

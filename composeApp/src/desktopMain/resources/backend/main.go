@@ -93,6 +93,7 @@ func main() {
 		fmt.Printf("%s> Root privileges confirmed. Executing as root.%s\n", FgGreen, Reset)
 		fmt.Printf("%s> KvanD initialized. Launching sentinel signal to frontend:%s\n", FgBlue, Reset)
 		fmt.Println("READY")
+		os.Stdout.Sync() // Flush the buffer
 
 		scanner := bufio.NewScanner(os.Stdin)
 		for scanner.Scan() {
@@ -257,7 +258,8 @@ func writeAcpiCall(command string) {
 		return
 	}
 
-	// fmt.Printf("%sWrite OK%s\n", FgGreen, Reset) // This is for debugging purposes
+	fmt.Println("OK")
+	os.Stdout.Sync()
 }
 
 func readAcpiCall() {
@@ -276,6 +278,7 @@ func readAcpiCall() {
 	}
 
 	fmt.Println(strings.Trim(scanner.Text(), "\x00\n "))
+	os.Stdout.Sync() // Flush the buffer
 }
 
 // Getters
@@ -287,19 +290,19 @@ func getStatus(command string) {
 
 // Setters
 func setPerformanceProfile(mode int) {
-	if mode < 0 || mode > 2 {
-		var builder strings.Builder
-		builder.WriteString(FgYellow + "Invalid performance option. Available options:" + "\n")
-		builder.WriteString("\t" + "set performance [0, 1, 2]" + "\n")
-		builder.WriteString("Where:" + "\n")
-		builder.WriteString("\t" + "0 -> Intelligent Cooling" + "\n")
-		builder.WriteString("\t" + "1 -> Extreme Performance" + "\n")
-		builder.WriteString("\t" + "2 -> Battery Saving" + "\n")
-		builder.WriteString(Reset)
-
-		fmt.Printf(builder.String())
-		return
-	}
+	//if mode < 0 || mode > 2 {
+	//	var builder strings.Builder
+	//	builder.WriteString(FgYellow + "Invalid performance option. Available options:" + "\n")
+	//	builder.WriteString("\t" + "set performance [0, 1, 2]" + "\n")
+	//	builder.WriteString("Where:" + "\n")
+	//	builder.WriteString("\t" + "0 -> Intelligent Cooling" + "\n")
+	//	builder.WriteString("\t" + "1 -> Extreme Performance" + "\n")
+	//	builder.WriteString("\t" + "2 -> Battery Saving" + "\n")
+	//	builder.WriteString(Reset)
+	//
+	//	fmt.Printf(builder.String())
+	//	return
+	//}
 
 	if mode == 0 {
 		writeAcpiCall(SET_PERFORMANCE_MODE_INTELLIGENT_COOLING)
@@ -315,11 +318,11 @@ func setPerformanceProfile(mode int) {
 }
 
 func setConservation(mode int) {
-	if mode != 0 && mode != 1 {
-		fmt.Printf("%sInvalid conservation option. Available options: \n\tset conservation [0, 1]\n", FgYellow)
-		fmt.Printf("Where 0 = OFF, and 1 = ON%s", Reset)
-		return
-	}
+	//if mode != 0 && mode != 1 {
+	//	fmt.Printf("%sInvalid conservation option. Available options: \n\tset conservation [0, 1]\n", FgYellow)
+	//	fmt.Printf("Where 0 = OFF, and 1 = ON%s", Reset)
+	//	return
+	//}
 
 	if mode == 0 {
 		writeAcpiCall(SET_BATT_CONSERVATION_OFF)
@@ -332,11 +335,11 @@ func setConservation(mode int) {
 }
 
 func setRapidCharge(mode int) {
-	if mode != 0 && mode != 1 {
-		fmt.Printf("%sInvalid rapid charge option. Available options: \n\tset rapid [0, 1]\n", FgYellow)
-		fmt.Printf("Where 0 = OFF, and 1 = ON%s", Reset)
-		return
-	}
+	//if mode != 0 && mode != 1 {
+	//	fmt.Printf("%sInvalid rapid charge option. Available options: \n\tset rapid [0, 1]\n", FgYellow)
+	//	fmt.Printf("Where 0 = OFF, and 1 = ON%s", Reset)
+	//	return
+	//}
 
 
 	if mode == 0 {

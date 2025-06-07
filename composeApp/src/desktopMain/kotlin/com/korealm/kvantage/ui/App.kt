@@ -37,6 +37,14 @@ fun App(kvand: KvandClient) {
     var isAnimatedBackground by remember { mutableStateOf(true) }
     var isSettingsOpen by remember { mutableStateOf(false) }
 
+    // There is a limitation which I don't know if comes from hardware or software.
+    // In either way let me explain:
+    // You can have both rapid charge and battery conservation options enabled at the same time.
+    // However if you have batt conservation on and rapid charge off, and you turn on rapid charge, it automatically deactivates batt conservation.
+    // I don't know why this happens and why it does not happen in the opposite way.
+    // Anyway, the following var is to keep track of that eccentric event and reflect it on the GUI to avoid unsync of the GUI with the actual settings on hardware.
+    var isRapidChargeToggleConservation by remember { mutableStateOf(false) }
+
     GruvboxTheme(darkTheme = themeState.isDarkTheme) {
         if (isAnimatedBackground) {
             AnimatedColorfulBackground(modifier = Modifier.fillMaxSize().blur(3.dp))
@@ -93,10 +101,20 @@ fun App(kvand: KvandClient) {
                 PowerProfilerSection(iconTheme, kvand, Modifier)
                 HorizontalDivider(modifier = Modifier.padding(top = 10.dp, bottom = 10.dp))
 
-                BatteryThreshold(iconTheme, kvand, Modifier)
+                BatteryThreshold(
+                    iconTheme = iconTheme,
+                    kvand = kvand,
+                    isRapidChargeToggleConservation = isRapidChargeToggleConservation,
+                    onChangeRapidChargeToggleConservation = { newValue -> isRapidChargeToggleConservation = newValue },
+                    modifier = Modifier
+                )
                 HorizontalDivider(modifier = Modifier.padding(top = 10.dp, bottom = 10.dp))
 
-                RapidCharge(kvand, modifier = Modifier)
+                RapidCharge(
+                    kvand = kvand,
+                    onChangeRapidChargeToggleConservation = { newValue -> isRapidChargeToggleConservation = newValue },
+                    modifier = Modifier
+                )
             }
         }
 
@@ -118,6 +136,26 @@ fun PowerProfilerSection(
     kvand: KvandClient,
     modifier: Modifier = Modifier
 ) {
+    var selectedIndex by remember { mutableIntStateOf(0) }
+    var isInitialized by remember { mutableStateOf(false) }
+    var updateCounter by remember { mutableIntStateOf(0) } // I had to use a counter as as I have no idea why a boolean did not work for this case.
+
+    LaunchedEffect(Unit) {
+        val result = withContext(Dispatchers.IO) {
+            kvand.sendCommand("get performance")
+        }
+
+        val sanitizedResult = result.replace("\u0000", "").trim()
+        selectedIndex = when (sanitizedResult) {
+            "0x0" -> 1 // Extreme Performance
+            "0x1" -> 0 // Intelligent Cooling (Balanced)
+            else -> 2 // Power Saving
+        }
+
+
+        isInitialized = true // Mark as ready
+    }
+
     Column(
         modifier = modifier
     ) {
@@ -128,42 +166,74 @@ fun PowerProfilerSection(
             modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 8.dp)
         )
 
-        SingleChoiceSegmentedButtonRow(
-            modifier = Modifier.padding(horizontal = 26.dp).heightIn(min = 48.dp),
-        ) {
-            var selectedIndex by remember { mutableIntStateOf(0) }
-            val options = listOf(
-                stringResource(Res.string.power_profile_performance),
-                stringResource(Res.string.power_profile_balanced),
-                stringResource(Res.string.power_profile_powersave)
-            )
+        if (isInitialized) {
+            SingleChoiceSegmentedButtonRow(
+                modifier = Modifier.padding(horizontal = 26.dp).heightIn(min = 48.dp),
+            ) {
+                val options = listOf(
+                    stringResource(Res.string.power_profile_performance),
+                    stringResource(Res.string.power_profile_balanced),
+                    stringResource(Res.string.power_profile_powersave)
+                )
 
-            options.forEachIndexed { index, label ->
-                SegmentedButton(
-                    shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
-                    onClick = { selectedIndex = index },
-                    selected = selectedIndex == index,
-                    modifier = Modifier
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center,
-                        modifier = Modifier.height(48.dp)
+                options.forEachIndexed { index, label ->
+                    SegmentedButton(
+                        shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
+                        onClick = {
+                            println("Value directly from SegmentedButton: $index\n")
+                            selectedIndex = index
+                            updateCounter++ // Always increments so guarantees that always the update code will be run... eccentric solutions but solutions.
+                        },
+                        selected = selectedIndex == index,
+                        modifier = Modifier
                     ) {
-                        Icon(
-                            imageVector = when (index) {
-                                0 -> iconTheme.Bolt
-                                1 -> iconTheme.Air
-                                else -> iconTheme.EnergySavingsLeaf
-                            },
-                            tint = MaterialTheme.colorScheme.onSurface,
-                            contentDescription = null,
-                            modifier = Modifier.padding(end = 4.dp)
-                        )
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center,
+                            modifier = Modifier.height(48.dp)
+                        ) {
+                            Icon(
+                                imageVector = when (index) {
+                                    0 -> iconTheme.Bolt
+                                    1 -> iconTheme.Air
+                                    else -> iconTheme.EnergySavingsLeaf
+                                },
+                                tint = MaterialTheme.colorScheme.onSurface,
+                                contentDescription = null,
+                                modifier = Modifier.padding(end = 4.dp)
+                            )
 
-                        Text(text = label, modifier = Modifier.padding(end = 3.dp))
+                            Text(text = label, modifier = Modifier.padding(end = 3.dp))
+                        }
                     }
                 }
+            }
+        } else {
+            Spacer(modifier = Modifier.height(5.dp))
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
+                modifier  = Modifier.fillMaxWidth()
+            ) {
+                CircularProgressIndicator(modifier = Modifier)
+            }
+
+            Spacer(modifier = Modifier.height(5.dp))
+        }
+    }
+
+    LaunchedEffect(updateCounter) {
+        if (isInitialized) {
+            withContext(Dispatchers.IO) {
+                val mode = when (selectedIndex) {
+                    0 -> 1 // Balanced = Intelligent Cooling = 0x000FB001
+                    1 -> 0 // Extreme = Extreme Performance = 0x0012B001
+                    else -> 2 // Power Save = Battery Saving = 0x0013B001
+                }
+
+                println("Value directly from LaunchedEffect:\nMode stores: $mode\nselectedIndex stores: $selectedIndex\n\n")
+                kvand.sendCommand("set performance $mode")
             }
         }
     }
@@ -173,18 +243,53 @@ fun PowerProfilerSection(
 fun BatteryThreshold(
     iconTheme: Icons.Rounded,
     kvand: KvandClient,
+    isRapidChargeToggleConservation: Boolean,
+    onChangeRapidChargeToggleConservation: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var checked by remember { mutableStateOf(false) }
+    var isChecked by remember { mutableStateOf(false) }
     var percentage by remember { mutableIntStateOf(80) }
 
-    SwitchWithText(
-        text = Res.string.battery_threshold,
-        checked = checked,
-        onCheckedChange = { checked = !checked },
-        checkedTrackColor = MaterialTheme.colorScheme.primary,
-        modifier = modifier.padding(top = 12.dp)
-    )
+    var isInitialized by remember { mutableStateOf(false) }
+    var pendingUpdate by remember { mutableStateOf<Boolean?>(null) }
+
+    LaunchedEffect(Unit) {
+        val result = withContext(Dispatchers.IO) {
+            kvand.sendCommand("get conservation")
+        }
+
+        // The ACPI interface returns a C-style string which comes with a null terminator character.
+        // Even though the output was already sanitized in the backend, it wouldn't be bad to make a double check re-sanitizing here just in case
+        val sanitizedResult = result.replace("\u0000", "").trim()
+        isChecked = sanitizedResult == "0x1"
+        isInitialized = true // Mark as ready
+    }
+
+    if (isInitialized) {
+        if (isRapidChargeToggleConservation) {
+            isChecked = false
+            onChangeRapidChargeToggleConservation(false)
+        }
+
+        SwitchWithText(
+            text = Res.string.battery_threshold,
+            checked = isChecked,
+            onCheckedChange = { checked ->
+                isChecked = checked
+                pendingUpdate = checked
+            },
+            checkedTrackColor = MaterialTheme.colorScheme.primary,
+            modifier = modifier.padding(top = 12.dp)
+        )
+    } else {
+        SwitchWithText(
+            text = Res.string.battery_threshold,
+            checked = false,
+            enabled = false,
+            onCheckedChange = {},
+            modifier = modifier.padding(top = 12.dp)
+        )
+    }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -195,7 +300,7 @@ fun BatteryThreshold(
             text = stringResource(Res.string.enable),
             fontSize = 20.sp,
             modifier = Modifier.padding(start = 16.dp),
-            color = if (checked) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+            color = if (isChecked) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
         )
 
         TextField(
@@ -210,7 +315,8 @@ fun BatteryThreshold(
                     it.toIntOrNull() ?: 0
                 }
             },
-            enabled = checked,
+//            enabled = checked,
+            enabled = false,
             placeholder = { percentage.toString() },
             trailingIcon = {
                 Icon(
@@ -237,7 +343,7 @@ fun BatteryThreshold(
         )
     }
 
-    AnimatedVisibility(checked) {
+    AnimatedVisibility(isChecked) {
         Spacer(modifier = Modifier.height(13.dp))
 
         Text(
@@ -247,11 +353,21 @@ fun BatteryThreshold(
             modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 5.dp).width(450.dp)
         )
     }
+
+    LaunchedEffect(pendingUpdate) {
+        if (pendingUpdate != null && isInitialized) {
+            withContext(Dispatchers.IO) {
+                kvand.sendCommand("set conservation ${if (pendingUpdate == true) 1 else 0}")
+            }
+            pendingUpdate = null
+        }
+    }
 }
 
 @Composable
 fun RapidCharge(
     kvand: KvandClient,
+    onChangeRapidChargeToggleConservation: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var isChecked by remember { mutableStateOf(false) }
@@ -264,8 +380,6 @@ fun RapidCharge(
             kvand.sendCommand("get rapid")
         }
 
-        // The ACPI interface returns a C-style string which comes with a null terminator character.
-        // Even though the output was already sanitized in the backend, it wouldn't be bad to make a double check re-sanitizing here just in case
         val sanitizedResult = result.replace("\u0000", "").trim()
         isChecked = sanitizedResult == "0x1"
         isInitialized = true // Mark as ready
@@ -279,6 +393,8 @@ fun RapidCharge(
             onCheckedChange = { checked ->
                 isChecked = checked
                 pendingUpdate = checked
+
+                if (checked) onChangeRapidChargeToggleConservation(true)
             },
             modifier = modifier
         )
