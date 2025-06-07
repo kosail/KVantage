@@ -23,6 +23,7 @@ import org.jetbrains.compose.resources.stringResource
 fun SwitchWithText(
     @StringRes text: StringResource,
     checked: Boolean,
+    enabled: Boolean = true,
     onCheckedChange: (Boolean) -> Unit,
     checkedTrackColor: Color = MaterialTheme.colorScheme.tertiary,
     modifier: Modifier = Modifier
@@ -43,6 +44,7 @@ fun SwitchWithText(
 
         Switch(
             checked = checked,
+            enabled = enabled,
             onCheckedChange = onCheckedChange,
             modifier = Modifier.padding(end = 9.dp).scale(1.1F),
             colors = SwitchDefaults.colors(
