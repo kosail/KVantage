@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.korealm.kvantage.state.KvandClient
 import com.korealm.kvantage.state.rememberAppThemeState
-import com.korealm.kvantage.theme.GruvboxTheme
+import com.korealm.kvantage.theme.AppTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kvantage.composeapp.generated.resources.*
@@ -45,7 +45,10 @@ fun App(kvand: KvandClient) {
     // Anyway, the following var is to keep track of that eccentric event and reflect it on the GUI to avoid unsync of the GUI with the actual settings on hardware.
     var isRapidChargeToggleConservation by remember { mutableStateOf(false) }
 
-    GruvboxTheme(darkTheme = themeState.isDarkTheme) {
+    AppTheme(
+        themeType = themeState.currentTheme,
+        darkTheme = themeState.isDarkTheme
+    ) {
         if (isAnimatedBackground) {
             AnimatedColorfulBackground(modifier = Modifier.fillMaxSize().blur(3.dp))
         } else {
@@ -138,7 +141,7 @@ fun PowerProfilerSection(
 ) {
     var selectedIndex by remember { mutableIntStateOf(0) }
     var isInitialized by remember { mutableStateOf(false) }
-    var updateCounter by remember { mutableIntStateOf(0) } // I had to use a counter as as I have no idea why a boolean did not work for this case.
+    var updateCounter by remember { mutableIntStateOf(0) } // I had to use a counter as I have no idea why a boolean did not work for this case.
 
     LaunchedEffect(Unit) {
         val result = withContext(Dispatchers.IO) {
