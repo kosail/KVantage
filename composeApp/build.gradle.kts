@@ -43,5 +43,6 @@ compose.desktop {
             packageName = "com.korealm.kvantage"
             packageVersion = "1.0.0"
         }
+
     }
 }

@@ -18,8 +18,11 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.korealm.kvantage.state.KvandClient
 import com.korealm.kvantage.state.rememberAppThemeState
 import com.korealm.kvantage.theme.GruvboxTheme
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kvantage.composeapp.generated.resources.*
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -27,7 +30,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
-fun App() {
+fun App(kvand: KvandClient) {
     val themeState = rememberAppThemeState()
     val iconTheme = Icons.Rounded
 
@@ -35,7 +38,6 @@ fun App() {
     var isSettingsOpen by remember { mutableStateOf(false) }
 
     GruvboxTheme(darkTheme = themeState.isDarkTheme) {
-
         if (isAnimatedBackground) {
             AnimatedColorfulBackground(modifier = Modifier.fillMaxSize().blur(3.dp))
         } else {
@@ -88,13 +90,13 @@ fun App() {
                     )
                 }
 
-                PowerProfilerSection(iconTheme, Modifier)
+                PowerProfilerSection(iconTheme, kvand, Modifier)
                 HorizontalDivider(modifier = Modifier.padding(top = 10.dp, bottom = 10.dp))
 
-                BatteryThreshold(iconTheme, Modifier)
+                BatteryThreshold(iconTheme, kvand, Modifier)
                 HorizontalDivider(modifier = Modifier.padding(top = 10.dp, bottom = 10.dp))
 
-                RapidCharge(modifier = Modifier)
+                RapidCharge(kvand, modifier = Modifier)
             }
         }
 
@@ -113,6 +115,7 @@ fun App() {
 @Composable
 fun PowerProfilerSection(
     iconTheme: Icons.Rounded,
+    kvand: KvandClient,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -169,6 +172,7 @@ fun PowerProfilerSection(
 @Composable
 fun BatteryThreshold(
     iconTheme: Icons.Rounded,
+    kvand: KvandClient,
     modifier: Modifier = Modifier
 ) {
     var checked by remember { mutableStateOf(false) }
@@ -247,14 +251,55 @@ fun BatteryThreshold(
 
 @Composable
 fun RapidCharge(
+    kvand: KvandClient,
     modifier: Modifier = Modifier
 ) {
-    var checked by remember { mutableStateOf(false) }
+    var isChecked by remember { mutableStateOf(false) }
+    var isInitialized by remember { mutableStateOf(false) }
+    var pendingUpdate by remember { mutableStateOf<Boolean?>(null) }
 
-    SwitchWithText(
-        text = Res.string.rapid_charge,
-        checked = checked,
-        onCheckedChange = { checked = !checked },
-        modifier = modifier
-    )
+    // Fetch backend status once
+    LaunchedEffect(Unit) {
+        val result = withContext(Dispatchers.IO) {
+            kvand.sendCommand("get rapid")
+        }
+
+        // The ACPI interface returns a C-style string which comes with a null terminator character.
+        // Even though the output was already sanitized in the backend, it wouldn't be bad to make a double check re-sanitizing here just in case
+        val sanitizedResult = result.replace("\u0000", "").trim()
+        isChecked = sanitizedResult == "0x1"
+        isInitialized = true // Mark as ready
+    }
+
+    // Switch UI
+    if (isInitialized) {
+        SwitchWithText(
+            text = Res.string.rapid_charge,
+            checked = isChecked,
+            onCheckedChange = { checked ->
+                isChecked = checked
+                pendingUpdate = checked
+            },
+            modifier = modifier
+        )
+    } else {
+        // Optional: show placeholder or disabled switch
+        SwitchWithText(
+            text = Res.string.rapid_charge,
+            checked = false,
+            onCheckedChange = {}, // no-op
+            modifier = modifier,
+            enabled = false // visually disabled
+        )
+    }
+
+    // Send backend update when switch changes
+    LaunchedEffect(pendingUpdate) {
+        if (pendingUpdate != null && isInitialized) {
+            withContext(Dispatchers.IO) {
+                kvand.sendCommand("set rapid ${if (pendingUpdate == true) 1 else 0}")
+            }
+            pendingUpdate = null
+        }
+    }
 }

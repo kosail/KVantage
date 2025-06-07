@@ -1,4 +1,3 @@
-// Source code of kvand.go included as a reference.
 package main
 
 import (
@@ -92,7 +91,8 @@ func main() {
 
 	if os.Getegid() == 0 {
 		fmt.Printf("%s> Root privileges confirmed. Executing as root.%s\n", FgGreen, Reset)
-		fmt.Printf("%s> KvanD initialized. Listening for commands...%s\n", FgBlue, Reset)
+		fmt.Printf("%s> KvanD initialized. Launching sentinel signal to frontend:%s\n", FgBlue, Reset)
+		fmt.Println("READY")
 
 		scanner := bufio.NewScanner(os.Stdin)
 		for scanner.Scan() {
@@ -275,7 +275,7 @@ func readAcpiCall() {
 		return
 	}
 
-	fmt.Println(scanner.Text())
+	fmt.Println(strings.Trim(scanner.Text(), "\x00\n "))
 }
 
 // Getters
