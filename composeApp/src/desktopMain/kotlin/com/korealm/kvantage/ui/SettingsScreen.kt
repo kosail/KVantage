@@ -5,9 +5,17 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -15,12 +23,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.korealm.kvantage.state.AppThemeState
+import com.korealm.kvantage.theme.AppTheme
+import com.korealm.kvantage.theme.ThemeType
 import kvantage.composeapp.generated.resources.Res
 import kvantage.composeapp.generated.resources.animated_background
 import kvantage.composeapp.generated.resources.copyright
 import kvantage.composeapp.generated.resources.dark_mode
 import kvantage.composeapp.generated.resources.settings
 import kvantage.composeapp.generated.resources.signature
+import kvantage.composeapp.generated.resources.themes
 import kvantage.composeapp.generated.resources.with_love
 import org.jetbrains.compose.resources.stringResource
 import java.time.LocalDate
@@ -31,7 +43,10 @@ fun SettingsScreen(
     isDarkTheme: Boolean,
     onThemeToggleAction: () -> Unit = {},
     isAnimatedBackground: Boolean,
-    onAnimatedBackgroundToggleAction: () -> Unit = {}
+    onAnimatedBackgroundToggleAction: () -> Unit = {},
+    appTheme: AppThemeState,
+    selectedThemeIndex: Int,
+    onClickThemeChange: (Int) -> Unit
 ) {
     Dialog(
         onDismissRequest = onDismissRequest,
@@ -44,7 +59,7 @@ fun SettingsScreen(
                 5.dp,
                 MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)
             ),
-            modifier = Modifier.size(width = 400.dp, height = 500.dp)
+            modifier = Modifier.size(width = 430.dp, height = 500.dp)
         ) {
             Column (
                 modifier = Modifier
@@ -79,9 +94,70 @@ fun SettingsScreen(
 
                 HorizontalDivider(modifier = Modifier.padding(top = 4.dp, bottom = 4.dp))
 
+                ThemeSelector(
+                    appTheme = appTheme,
+                    selectedThemeIndex = selectedThemeIndex,
+                    onClickThemeChange = onClickThemeChange,
+                    modifier = Modifier
+                )
+
+                HorizontalDivider(modifier = Modifier.padding(top = 4.dp, bottom = 4.dp))
+
                 SalutationsAndCopyright(modifier = Modifier)
             }
         }
+    }
+}
+
+@Composable
+fun ThemeSelector(
+    selectedThemeIndex: Int,
+    onClickThemeChange: (Int) -> Unit,
+    appTheme: AppThemeState,
+    modifier: Modifier = Modifier
+) {
+    val themes = listOf(
+        ThemeType.GRUVBOX,
+        ThemeType.MATERIAL,
+        ThemeType.KANAGAWA,
+        ThemeType.DRACULA
+    )
+
+    Column(modifier = modifier) {
+        Text(
+            text = stringResource(Res.string.themes),
+            fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier
+        )
+
+        SingleChoiceSegmentedButtonRow(
+            modifier = Modifier.padding(vertical = 10.dp).heightIn(min = 48.dp)
+        ) {
+            themes.forEachIndexed { index, label ->
+                SegmentedButton(
+                    shape = SegmentedButtonDefaults.itemShape(index, themes.size),
+                    onClick = {
+                        onClickThemeChange(index)
+                        appTheme.setTheme (themes[index])
+                    },
+                    selected = selectedThemeIndex == index,
+                    modifier = Modifier
+                ) {
+                    Column (
+                        verticalArrangement = Arrangement.Center,
+                        modifier = Modifier.fillMaxWidth().height(48.dp)
+                    ) {
+                        Text(
+                            text = label.toString().lowercase().replaceFirstChar { char -> char.titlecase() },
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
+                }
+            }
+        }
+
     }
 }
 

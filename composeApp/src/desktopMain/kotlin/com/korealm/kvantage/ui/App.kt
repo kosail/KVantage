@@ -36,6 +36,7 @@ fun App(kvand: KvandClient) {
 
     var isAnimatedBackground by remember { mutableStateOf(true) }
     var isSettingsOpen by remember { mutableStateOf(false) }
+    var selectedThemeIndex by remember { mutableIntStateOf(0 ) }
 
     // There is a limitation which I don't know if comes from hardware or software.
     // In either way let me explain:
@@ -127,7 +128,10 @@ fun App(kvand: KvandClient) {
                 isDarkTheme = themeState.isDarkTheme,
                 onThemeToggleAction = { themeState.toggleTheme() },
                 isAnimatedBackground = isAnimatedBackground,
-                onAnimatedBackgroundToggleAction = { isAnimatedBackground = !isAnimatedBackground }
+                onAnimatedBackgroundToggleAction = { isAnimatedBackground = !isAnimatedBackground },
+                appTheme = themeState,
+                selectedThemeIndex = selectedThemeIndex,
+                onClickThemeChange = { index -> selectedThemeIndex = index }
             )
         }
     }
@@ -183,7 +187,6 @@ fun PowerProfilerSection(
                     SegmentedButton(
                         shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
                         onClick = {
-                            println("Value directly from SegmentedButton: $index\n")
                             selectedIndex = index
                             updateCounter++ // Always increments so guarantees that always the update code will be run... eccentric solutions but solutions.
                         },
@@ -234,8 +237,6 @@ fun PowerProfilerSection(
                     1 -> 0 // Extreme = Extreme Performance = 0x0012B001
                     else -> 2 // Power Save = Battery Saving = 0x0013B001
                 }
-
-                println("Value directly from LaunchedEffect:\nMode stores: $mode\nselectedIndex stores: $selectedIndex\n\n")
                 kvand.sendCommand("set performance $mode")
             }
         }
