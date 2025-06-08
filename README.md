@@ -10,7 +10,7 @@
 ## 🌻 Current Status
 The app is fully functional. The only thing that is not yet implemented is the option to set a customized battery threshold. By now, it is hardcoded to the default value (which is 80%).
 
-The GUI allows toggling performance profiles, battery thresholds, and rapid charge settings. Designed to be intuitive, light, and visually appealing. It has four available themes to choose from on settings.
+The GUI allows toggling performance profiles, battery thresholds, and rapid charge settings. Designed to be intuitive, light, and visually appealing. It has four available themes to choose from on settings, and supports up to three languages (Spanish, English and Japanese). It should change language based on your System's locale.
   <br><br>
 
 ### **Known Limitations:**
