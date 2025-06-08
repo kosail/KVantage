@@ -28,6 +28,7 @@
 ✅ **Battery Charge Threshold Management**  (AKA limit battery charge at 80% to improve battery lifespan)  
 ✅ **Rapid Charge Enable/Disable**  
 ✅ **Multiple dark and light themes (by now only gruvbox is supported)**   
+❌ **Settings persistance (by now settings are only store at runtime)**  
 ❌ **Custom threshold for battery conservation**  
 ❌ **Tray icon support**  
 ❌ **Native image packaging** (Planned)
