@@ -1,13 +1,9 @@
 package com.korealm.kvantage.state
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
-import kotlin.system.exitProcess
 
 class KvandClient private constructor(
     private val process: Process,
@@ -44,12 +40,12 @@ class KvandClient private constructor(
         private fun handleBackendDeath(): Nothing {
             // I did not find a way to show a nice Compose window that notifies the user an error has occurred.
             // Thus, I'll use Swing as a fallback.
-                javax.swing.JOptionPane.showMessageDialog(
-                    null,
-                    "Failed to initialize the backend service.\nRoot permissions are required to run this application.",
-                    "Critical Error",
-                    javax.swing.JOptionPane.ERROR_MESSAGE
-                )
+            javax.swing.JOptionPane.showMessageDialog(
+                null,
+                "Failed to initialize the backend service.\nRoot permissions are required to run this application.",
+                "Critical Error",
+                javax.swing.JOptionPane.ERROR_MESSAGE
+            )
 
             throw IllegalStateException("Backend service failed to start (likely root permission issue)")
         }
