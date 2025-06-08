@@ -33,13 +33,13 @@ import java.time.LocalDate
 
 @Composable
 fun SettingsScreen(
-    onDismissRequest: () -> Unit = {},
     isDarkTheme: Boolean,
-    onThemeToggleAction: () -> Unit = {},
     isAnimatedBackground: Boolean,
-    onAnimatedBackgroundToggleAction: () -> Unit = {},
-    appTheme: AppThemeState,
     selectedThemeIndex: Int,
+    appTheme: AppThemeState,
+    onDismissRequest: () -> Unit = {},
+    onThemeToggleAction: () -> Unit = {},
+    onAnimatedBackgroundToggleAction: () -> Unit = {},
     onClickThemeChange: (Int) -> Unit
 ) {
     Dialog(
