@@ -28,32 +28,32 @@ const (
 	FgYellow   = "\033[33m"
 	FgRed      = "\033[31m"
 	FgBlue     = "\033[34m"
-	FgMagenta  = "\033[35m"
+	//FgMagenta  = "\033[35m"
 )
 
 // Do not modify these values unless you are absolutely sure of it, and you know what you are doing.
 // These values are the actual values that we will be writing into the ACPI call interface
 const (
-	// ACPI_CALL_PATH AFAIK this path is the same across all distros, but better to no hardcode it
-	ACPI_CALL_PATH = "/proc/acpi/call"
+	// AcpiCallPath AFAIK this path is the same across all distros, but better to no hardcode it
+	AcpiCallPath = "/proc/acpi/call"
 
 	// GET status from all options
-	GET_BATT_CONSERVATION_STATUS =  "\\_SB.PCI0.LPC0.EC0.BTSM"
-	GET_RAPID_CHARGE_STATUS = "\\_SB.PCI0.LPC0.EC0.QCHO"
-	GET_PERFORMANCE_MODE_STATUS = "\\_SB.PCI0.LPC0.EC0.SPMO"
+	GetBattConservationStatus   =  "\\_SB.PCI0.LPC0.EC0.BTSM"
+	GetRapidChargeStatus     = "\\_SB.PCI0.LPC0.EC0.QCHO"
+	GetPerformanceModeStatus = "\\_SB.PCI0.LPC0.EC0.SPMO"
 
 	// SET Battery Conservation Mode
-	SET_BATT_CONSERVATION_ON = "\\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x03"
-	SET_BATT_CONSERVATION_OFF = "\\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x05"
+	SetBattConservationOn  = "\\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x03"
+	SetBattConservationOff = "\\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x05"
 
 	// SET Rapid Charge
-	SET_RAPID_CHARGE_ON = "\\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x07"
-	SET_RAPID_CHARGE_OFF = "\\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x08"
+	SetRapidChargeOn  = "\\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x07"
+	SetRapidChargeOff = "\\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x08"
 
 	// SET Performance Mode
-	SET_PERFORMANCE_MODE_INTELLIGENT_COOLING = "\\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x000FB001"
-	SET_PERFORMANCE_MODE_EXTREME_PERFORMANCE = "\\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x0012B001"
-	SET_PERFORMANCE_MODE_POWER_SAVING = "\\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x0013B001"
+	SetPerformanceModeIntelligentCooling = "\\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x000FB001"
+	SetPerformanceModeExtremePerformance = "\\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x0012B001"
+	SetPerformanceModePowerSaving        = "\\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x0013B001"
 )
 
 
@@ -170,11 +170,11 @@ func parseCommand(tokens []string) {
 	if tokens[0] == "get" {
 		switch tokens[1] {
 		case "performance":
-			getStatus(GET_PERFORMANCE_MODE_STATUS)
+			getStatus(GetPerformanceModeStatus)
 		case "conservation":
-			getStatus(GET_BATT_CONSERVATION_STATUS)
+			getStatus(GetBattConservationStatus)
 		case "rapid":
-			getStatus(GET_RAPID_CHARGE_STATUS)
+			getStatus(GetRapidChargeStatus)
 		default:
 			var builder strings.Builder
 			builder.WriteString(FgYellow + "Invalid get option. Available get modes: " + "\n")
@@ -266,7 +266,7 @@ func parseCommand(tokens []string) {
 */
 func writeAcpiCall(command string, feedback bool) {
 	// Open the file with write permissions
-	file, err := os.OpenFile(ACPI_CALL_PATH, os.O_WRONLY, 0)
+	file, err := os.OpenFile(AcpiCallPath, os.O_WRONLY, 0)
 	if err != nil {
 		fmt.Printf("%sError: failed to open ACPI call interface. Information about the error:%s\n %v\n", FgRed, Reset, err)
 		return
@@ -288,7 +288,7 @@ func writeAcpiCall(command string, feedback bool) {
 
 func readAcpiCall() {
 	// Open the file with read permissions
-	file, err := os.OpenFile(ACPI_CALL_PATH, os.O_RDONLY, 0)
+	file, err := os.OpenFile(AcpiCallPath, os.O_RDONLY, 0)
 	if err != nil {
 		fmt.Printf("%sError: failed to open ACPI call interface. Information about the error:%s\n %v\n", FgRed, Reset, err)
 	}
@@ -297,7 +297,7 @@ func readAcpiCall() {
 	// Read the response
 	scanner := bufio.NewScanner(file)
 	if !scanner.Scan() {
-		fmt.Printf("%sError: No data returned from ACPI.%s\n %v\n", FgRed, Reset)
+		fmt.Printf("%sError: No data returned from ACPI.%s\n\n", FgRed, Reset)
 		return
 	}
 
@@ -315,63 +315,36 @@ func getStatus(command string) {
 
 // Setters
 func setPerformanceProfile(mode int) {
-	//if mode < 0 || mode > 2 {
-	//	var builder strings.Builder
-	//	builder.WriteString(FgYellow + "Invalid performance option. Available options:" + "\n")
-	//	builder.WriteString("\t" + "set performance [0, 1, 2]" + "\n")
-	//	builder.WriteString("Where:" + "\n")
-	//	builder.WriteString("\t" + "0 -> Intelligent Cooling" + "\n")
-	//	builder.WriteString("\t" + "1 -> Extreme Performance" + "\n")
-	//	builder.WriteString("\t" + "2 -> Battery Saving" + "\n")
-	//	builder.WriteString(Reset)
-	//
-	//	fmt.Printf(builder.String())
-	//	return
-	//}
-
 	if mode == 0 {
-		writeAcpiCall(SET_PERFORMANCE_MODE_INTELLIGENT_COOLING, true)
+		writeAcpiCall(SetPerformanceModeIntelligentCooling, true)
 	}
 
 	if mode == 1 {
-		writeAcpiCall(SET_PERFORMANCE_MODE_EXTREME_PERFORMANCE, true)
+		writeAcpiCall(SetPerformanceModeExtremePerformance, true)
 	}
 
 	if mode == 2 {
-		writeAcpiCall(SET_PERFORMANCE_MODE_POWER_SAVING, true)
+		writeAcpiCall(SetPerformanceModePowerSaving, true)
 	}
 }
 
 func setConservation(mode int) {
-	//if mode != 0 && mode != 1 {
-	//	fmt.Printf("%sInvalid conservation option. Available options: \n\tset conservation [0, 1]\n", FgYellow)
-	//	fmt.Printf("Where 0 = OFF, and 1 = ON%s", Reset)
-	//	return
-	//}
-
 	if mode == 0 {
-		writeAcpiCall(SET_BATT_CONSERVATION_OFF, true)
+		writeAcpiCall(SetBattConservationOff, true)
 	}
 
 	if mode == 1 {
-		writeAcpiCall(SET_BATT_CONSERVATION_ON, true)
+		writeAcpiCall(SetBattConservationOn, true)
 	}
 
 }
 
 func setRapidCharge(mode int) {
-	//if mode != 0 && mode != 1 {
-	//	fmt.Printf("%sInvalid rapid charge option. Available options: \n\tset rapid [0, 1]\n", FgYellow)
-	//	fmt.Printf("Where 0 = OFF, and 1 = ON%s", Reset)
-	//	return
-	//}
-
-
 	if mode == 0 {
-		writeAcpiCall(SET_RAPID_CHARGE_OFF, true)
+		writeAcpiCall(SetRapidChargeOff, true)
 	}
 
 	if mode == 1 {
-		writeAcpiCall(SET_RAPID_CHARGE_ON, true)
+		writeAcpiCall(SetRapidChargeOn, true)
 	}
 }
