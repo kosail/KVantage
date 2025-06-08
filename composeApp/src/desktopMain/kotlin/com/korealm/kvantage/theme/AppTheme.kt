@@ -13,7 +13,7 @@ fun AppTheme(
 ) {
     val colorScheme = when (themeType) {
         ThemeType.GRUVBOX -> if (darkTheme) gruvboxDarkColors() else gruvboxLightColors()
-        ThemeType.MATERIAL_YOU -> if (darkTheme) materialYouDarkColors() else materialYouLightColors()
+        ThemeType.MATERIAL -> if (darkTheme) materialYouDarkColors() else materialYouLightColors()
         ThemeType.DRACULA -> if (darkTheme) draculaDarkColors() else draculaLightColors()
         ThemeType.KANAGAWA -> if (darkTheme) kanagawaDarkColors() else kanagawaLightColors()
     }
