@@ -3,21 +3,22 @@
 
 ![KVantage logo](repo_images/main_logo.png)
 
-**KVantage** is a sleek and minimal desktop app designed to provide users of Lenovo laptops running Linux with easy access to essential device settings. Inspired by the clean aesthetics of **GNOME (GTK)** and **macOS**, KVantage is built with **Kotlin + Compose Multiplatform for Desktop**, and aims to offer just the core features users care about. No bloat.
+**KVantage** is a sleek and minimal desktop app designed to provide users of **Lenovo laptops** running Linux with easy access to essential device settings. Inspired by the clean aesthetics of **GNOME (GTK)** and **macOS**, KVantage is built with **Kotlin + Compose Multiplatform for Desktop**, and aims to offer just the core features users care about. No bloat.
 
 ---
 
 ## 🌻 Current Status
-- **Development Stage**: The GUI and the backend are completed at 100%. The only function that is not yet implemented is the option to set a customized battery threshold. By now, it is hardcoded to the default value (which is 80%).
-- **Functionality:** The GUI allows toggling performance profiles, battery thresholds, and rapid charge settings.
-- **Usability:** Designed to be intuitive, light, and visually appealing. It has 4 available themes to choose from on settings.
-- **Known Limitations:**
-  1. System compatibility is limited to Lenovo laptops that expose the ACPI interface using the acpi_call kernel module (`/proc/acpi/call`).
+The app is fully functional. The only thing that is not yet implemented is the option to set a customized battery threshold. By now, it is hardcoded to the default value (which is 80%).
+
+The GUI allows toggling performance profiles, battery thresholds, and rapid charge settings. Designed to be intuitive, light, and visually appealing. It has 4 available themes to choose from on settings.
+  <br><br>
+
+### **Known Limitations:**
+  1. **System compatibility is limited to Lenovo laptops** that expose the ACPI interface using the acpi_call kernel module (`/proc/acpi/call`).
   2. The app needs root access to perform the ACPI read and writes at `/proc/acpi/call`. This is a limitation that cannot be bypassed, but it was minimized by asking for the password once for the entire execution of the program, and isolating that mentioned root access to just the backend server.
 
-### **Known bugs:**
-* ~~I just found that there is an issue of synchronization between the GUI and the backend, and even though they work together seamlessly, either the GUI or the backend are too fast for the other. I have to work on this.~~ **[FIXED]**
-* **No bugs found so far.**
+[//]: # (### **Known bugs:**)
+[//]: # (* **No bugs found so far.**)
 
 ---
 
@@ -83,12 +84,16 @@ I know, I played with fire. Sorry mom, I will not do that again. I will test my 
 
 ---
 
-## 📜 License
+## 📜 Disclaimer & License
+This app targets specifically Lenovo laptops. Please do NOT run it if your laptop is not Lenovo. The backend assumes it is run on a Lenovo laptop with a known/defined ACPI table to access the battery, performance and rapid charge.
+This software needs root privileges to run, and thus, expect undefined behavior if you run Lenovo specific ACPI commands in a non-targeted ACPI table. Use it as your own risk.
+
 ![GPLv3 License logo. Copyright © 2012 Christian Cadena](repo_images/license-logos-by-christian-candena-GNU_GPLv3_License.png)
 
 [GPLv3 (GNU General Public License v3)](LICENSE.txt) – Free to use, modify, and distribute as long as this remains open source, and it is not use for profitable purposes.
 
-    GPLv3 Logos:
+GPLv3 Logos:
+
     Copyright © 2012 Christian Cadena
     Available under the Creative Commons Attribution 3.0 Unported License.
 
