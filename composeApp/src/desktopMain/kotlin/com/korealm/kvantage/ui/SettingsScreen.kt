@@ -11,11 +11,6 @@ import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -24,8 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.korealm.kvantage.state.AppThemeState
-import com.korealm.kvantage.theme.AppTheme
-import com.korealm.kvantage.theme.ThemeType
+import com.korealm.kvantage.ui.theme.ThemeType
 import kvantage.composeapp.generated.resources.Res
 import kvantage.composeapp.generated.resources.animated_background
 import kvantage.composeapp.generated.resources.copyright

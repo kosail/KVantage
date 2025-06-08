@@ -1,4 +1,4 @@
-package com.korealm.kvantage.theme
+package com.korealm.kvantage.ui.theme
 
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
