@@ -145,7 +145,9 @@ fun PowerProfilerSection(
 ) {
     var selectedIndex by remember { mutableIntStateOf(0) }
     var isInitialized by remember { mutableStateOf(false) }
-    var updateCounter by remember { mutableIntStateOf(0) } // I had to use a counter as I have no idea why a boolean did not work for this case.
+//    var updateCounter by remember { mutableIntStateOf(0) } // I had to use a counter as I have no idea why a boolean did not work for this case.
+    var pendingUpdate by remember { mutableStateOf<Boolean?>(null) }
+
 
     LaunchedEffect(Unit) {
         val result = withContext(Dispatchers.IO) {
@@ -188,7 +190,8 @@ fun PowerProfilerSection(
                         shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
                         onClick = {
                             selectedIndex = index
-                            updateCounter++ // Always increments so guarantees that always the update code will be run... eccentric solutions but solutions.
+//                            updateCounter++ // Always increments so guarantees that always the update code will be run... eccentric solutions but solutions.
+                            pendingUpdate = true
                         },
                         selected = selectedIndex == index,
                         modifier = Modifier
@@ -229,7 +232,7 @@ fun PowerProfilerSection(
         }
     }
 
-    LaunchedEffect(updateCounter) {
+    LaunchedEffect(pendingUpdate != null && isInitialized) {
         if (isInitialized) {
             withContext(Dispatchers.IO) {
                 val mode = when (selectedIndex) {
@@ -239,6 +242,7 @@ fun PowerProfilerSection(
                 }
                 kvand.sendCommand("set performance $mode")
             }
+            pendingUpdate = null
         }
     }
 }

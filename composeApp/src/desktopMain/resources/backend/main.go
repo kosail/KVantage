@@ -242,7 +242,29 @@ func parseCommand(tokens []string) {
 // Due to this limitation, is not possible to perform a read call right away after a setting has been written.
 // Instead, I will have the front end to manually call a read operation from the backend after it has requested a write operation.
 
-func writeAcpiCall(command string) {
+/*
+	#########################
+	## About writeAcpiCall ##
+	#########################
+
+	When we want to write a setting to the ACPI interface, we don't get any feedback. So, the GUI doesn't know the result
+	of the operation and hangs waiting for something to read. That's why we have a feedback parameter.
+	Example:
+		> set performance 0
+		OK
+
+	When we just want to check the status (the current value) of a setting, we DO care for what ACPI returns.
+	We want to print that returned value, that so the GUI catches it up and updates itself accordingly.
+	The GUI expects only 1 value, but if we always print OK at writeAcpiCall operations, this will be printed:
+		> get conservation
+		OK
+		0x1
+
+	The GUI will catch "OK" instead of the actual value, and everything messes up from the frontend side.
+
+	I know it is a long explanation, but TL:DR we don't need feedback when checking values, just when writing.
+*/
+func writeAcpiCall(command string, feedback bool) {
 	// Open the file with write permissions
 	file, err := os.OpenFile(ACPI_CALL_PATH, os.O_WRONLY, 0)
 	if err != nil {
@@ -258,8 +280,10 @@ func writeAcpiCall(command string) {
 		return
 	}
 
-	fmt.Println("OK")
-	os.Stdout.Sync()
+	if feedback {
+		fmt.Println("OK")
+		os.Stdout.Sync()
+	}
 }
 
 func readAcpiCall() {
@@ -277,13 +301,14 @@ func readAcpiCall() {
 		return
 	}
 
+	// Sanitize string. Convert it from C-style strings (char[] including '\0' at the end) to normal string and print it out.
 	fmt.Println(strings.Trim(scanner.Text(), "\x00\n "))
 	os.Stdout.Sync() // Flush the buffer
 }
 
 // Getters
 func getStatus(command string) {
-	writeAcpiCall(command)
+	writeAcpiCall(command, false)
 
 	readAcpiCall()
 }
@@ -305,15 +330,15 @@ func setPerformanceProfile(mode int) {
 	//}
 
 	if mode == 0 {
-		writeAcpiCall(SET_PERFORMANCE_MODE_INTELLIGENT_COOLING)
+		writeAcpiCall(SET_PERFORMANCE_MODE_INTELLIGENT_COOLING, true)
 	}
 
 	if mode == 1 {
-		writeAcpiCall(SET_PERFORMANCE_MODE_EXTREME_PERFORMANCE)
+		writeAcpiCall(SET_PERFORMANCE_MODE_EXTREME_PERFORMANCE, true)
 	}
 
 	if mode == 2 {
-		writeAcpiCall(SET_PERFORMANCE_MODE_POWER_SAVING)
+		writeAcpiCall(SET_PERFORMANCE_MODE_POWER_SAVING, true)
 	}
 }
 
@@ -325,11 +350,11 @@ func setConservation(mode int) {
 	//}
 
 	if mode == 0 {
-		writeAcpiCall(SET_BATT_CONSERVATION_OFF)
+		writeAcpiCall(SET_BATT_CONSERVATION_OFF, true)
 	}
 
 	if mode == 1 {
-		writeAcpiCall(SET_BATT_CONSERVATION_ON)
+		writeAcpiCall(SET_BATT_CONSERVATION_ON, true)
 	}
 
 }
@@ -343,10 +368,10 @@ func setRapidCharge(mode int) {
 
 
 	if mode == 0 {
-		writeAcpiCall(SET_RAPID_CHARGE_OFF)
+		writeAcpiCall(SET_RAPID_CHARGE_OFF, true)
 	}
 
 	if mode == 1 {
-		writeAcpiCall(SET_RAPID_CHARGE_ON)
+		writeAcpiCall(SET_RAPID_CHARGE_ON, true)
 	}
 }

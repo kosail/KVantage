@@ -16,7 +16,8 @@
   2. The app needs root access to perform the ACPI read and writes at `/proc/acpi/call`. This is a limitation that cannot be bypassed, but it was minimized by asking for the password once for the entire execution of the program, and isolating that mentioned root access to just the backend server.
 
 ### **Known bugs:**
-* I just found that there is an issue of synchronization between the GUI and the backend, and even though they work together seamlessly, either the GUI or the backend are too fast for the other. I have to work on this.
+* ~~I just found that there is an issue of synchronization between the GUI and the backend, and even though they work together seamlessly, either the GUI or the backend are too fast for the other. I have to work on this.~~ **[FIXED]**
+* **No bugs found so far.**
 
 ---
 
@@ -72,8 +73,15 @@ To keep things clean, I will maintain only the GUI app here, and kvand (the back
 ## 💐 Contributing
 Contributions are welcome! Feel free to fork the repository and submit pull requests. If you have ideas, suggestions, or bug reports, open an issue on GitHub.
 
-[//]: # (## 🎒 Resources)
+---
 
+## 🎒 What I learned from this project
+
+Bro, I need to use loggers to keep track of what's happening with the app in all moment. It was HARD to follow the execution and debug, and moreover, due to the fact this app was tested running as root.
+
+I know, I played with fire. Sorry mom, I will not do that again. I will test my apps without root privileges from now on.
+
+---
 
 ## 📜 License
 ![GPLv3 License logo. Copyright © 2012 Christian Cadena](repo_images/license-logos-by-christian-candena-GNU_GPLv3_License.png)
