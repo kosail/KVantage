@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.korealm.kvantage.state.KvandClient
 import com.korealm.kvantage.state.rememberAppThemeState
-import com.korealm.kvantage.theme.AppTheme
+import com.korealm.kvantage.ui.theme.AppTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kvantage.composeapp.generated.resources.*

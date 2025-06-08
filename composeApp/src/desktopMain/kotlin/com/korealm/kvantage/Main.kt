@@ -6,18 +6,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.ApplicationScope
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import com.korealm.kvantage.state.KvandClient
 import com.korealm.kvantage.ui.App
-import dorkbox.systemTray.MenuItem
-import dorkbox.systemTray.SystemTray
 import kvantage.composeapp.generated.resources.Res
 import kvantage.composeapp.generated.resources.favicon
 import org.jetbrains.compose.resources.painterResource
-import java.net.URL
 
 fun main() = application {
     // This app needs root access to work, but it manages it to escalate it internally and securely.
