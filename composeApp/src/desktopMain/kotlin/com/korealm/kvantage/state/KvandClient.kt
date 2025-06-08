@@ -2,6 +2,9 @@ package com.korealm.kvantage.state
 
 import java.io.BufferedReader
 import java.io.BufferedWriter
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
@@ -15,8 +18,23 @@ class KvandClient private constructor(
 
         fun getInstance(): KvandClient {
             if (instance == null) {
-                val backendPath = javaClass.getResource("/backend/kvand").path
-                val process = ProcessBuilder(backendPath)
+                // There is a limitation of the JVM in which we CANNOT run executables from inside JAR files, so we have to copy the backend executable into /tmp
+                // give it +x permissions and then run it. That's what we will do now.
+
+                val embeddedBackend = this::class.java.getResourceAsStream("/backend/kvand") ?: throw IOException("Could not find embedded backend binary!")
+                val tempFile = File.createTempFile("kvantage_service", null)
+                tempFile.deleteOnExit() // auto-delete on shutdown
+
+                // Copy the backend binary from the JAR to the temp file
+                embeddedBackend.use { input ->
+                    FileOutputStream(tempFile).use { output ->
+                        input.copyTo(output)
+                    }
+                }
+
+                tempFile.setExecutable(true)
+
+                val process = ProcessBuilder(tempFile.absolutePath)
                     .redirectErrorStream(true)
                     .start()
 
