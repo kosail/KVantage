@@ -10,7 +10,7 @@
 ## 🌻 Current Status
 The app is fully functional. The only thing that is not yet implemented is the option to set a customized battery threshold. By now, it is hardcoded to the default value (which is 80%).
 
-The GUI allows toggling performance profiles, battery thresholds, and rapid charge settings. Designed to be intuitive, light, and visually appealing. It has 4 available themes to choose from on settings.
+The GUI allows toggling performance profiles, battery thresholds, and rapid charge settings. Designed to be intuitive, light, and visually appealing. It has four available themes to choose from on settings.
   <br><br>
 
 ### **Known Limitations:**
@@ -30,7 +30,7 @@ The GUI allows toggling performance profiles, battery thresholds, and rapid char
 ✅ **Battery Charge Threshold Management**  (AKA limit battery charge at 80% to improve battery lifespan)  
 ✅ **Rapid Charge Enable/Disable**  
 ✅ **Multiple dark and light themes (by now only gruvbox is supported)**   
-❌ **Settings persistance (by now settings are only store at runtime)**  
+✅ **Settings persistance (by now settings are only store at runtime)**  
 ❌ **Custom threshold for battery conservation**  
 ❌ **Tray icon support**  
 ❌ **Native image packaging** (Planned)

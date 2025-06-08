@@ -18,6 +18,8 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.korealm.kvantage.settings.SettingsManager
+import com.korealm.kvantage.settings.SettingsManager.saveSettings
 import com.korealm.kvantage.state.KvandClient
 import com.korealm.kvantage.state.rememberAppThemeState
 import com.korealm.kvantage.ui.theme.AppTheme
@@ -31,26 +33,31 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 @Preview
 fun App(kvand: KvandClient) {
-    val themeState = rememberAppThemeState()
+    val savedSettings = remember { mutableStateOf(SettingsManager.loadSettings()) }
+
+    val themeState = rememberAppThemeState( savedSettings.value.isDarkMode )
     val iconTheme = Icons.Rounded
 
-    var isAnimatedBackground by remember { mutableStateOf(true) }
+//    var isAnimatedBackground by remember { mutableStateOf( savedSettings.value.isAnimatedBackground ) }
     var isSettingsOpen by remember { mutableStateOf(false) }
-    var selectedThemeIndex by remember { mutableIntStateOf(0 ) }
+//    var selectedThemeIndex by remember { mutableIntStateOf( savedSettings.value.selectedThemeIndex ) }
 
-    // There is a limitation which I don't know if comes from hardware or software.
-    // In either way let me explain:
-    // You can have both rapid charge and battery conservation options enabled at the same time.
-    // However if you have batt conservation on and rapid charge off, and you turn on rapid charge, it automatically deactivates batt conservation.
-    // I don't know why this happens and why it does not happen in the opposite way.
-    // Anyway, the following var is to keep track of that eccentric event and reflect it on the GUI to avoid unsync of the GUI with the actual settings on hardware.
+    /* There is a limitation that I don't know if it comes from hardware or software.
+     In either way, let me explain:
+
+     You can have both rapid charge and battery conservation options enabled at the same time.
+     However, if you have batt conservation on and rapid charge off, and you turn on rapid charge, it automatically deactivates batt conservation.
+
+     I don't know why this happens and why it does not happen in the opposite way.
+     Anyway, the following state is to keep track of that eccentric event and reflect it on the GUI to avoid un-sync of the GUI with the actual settings on hardware.
+     */
     var isRapidChargeToggleConservation by remember { mutableStateOf(false) }
 
     AppTheme(
         themeType = themeState.currentTheme,
         darkTheme = themeState.isDarkTheme
     ) {
-        if (isAnimatedBackground) {
+        if (savedSettings.value.isAnimatedBackground) {
             AnimatedColorfulBackground(modifier = Modifier.fillMaxSize().blur(3.dp))
         } else {
             Box(
@@ -64,7 +71,7 @@ fun App(kvand: KvandClient) {
 
         Surface(
             shape = RoundedCornerShape(10.dp),
-            color = if (isAnimatedBackground) {
+            color = if (savedSettings.value.isAnimatedBackground) {
                 MaterialTheme.colorScheme.surface.copy(alpha = 0.7F)
             } else {
                 if (themeState.isDarkTheme) MaterialTheme.colorScheme.background else MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5F)
@@ -126,12 +133,27 @@ fun App(kvand: KvandClient) {
             SettingsScreen(
                 onDismissRequest = { isSettingsOpen = !isSettingsOpen },
                 isDarkTheme = themeState.isDarkTheme,
-                onThemeToggleAction = { themeState.toggleTheme() },
-                isAnimatedBackground = isAnimatedBackground,
-                onAnimatedBackgroundToggleAction = { isAnimatedBackground = !isAnimatedBackground },
+                onThemeToggleAction = {
+                    themeState.toggleTheme() // Toggle dark mode to trigger UI recomposition
+
+                    // Make the change on savedSettings and save it
+                    val dark = savedSettings.value.isDarkMode
+                    savedSettings.value = savedSettings.value.copy(isDarkMode = !dark)
+                    saveSettings(savedSettings.value)
+                },
+                isAnimatedBackground = savedSettings.value.isAnimatedBackground,
+                onAnimatedBackgroundToggleAction = {
+                    val animated = savedSettings.value.isAnimatedBackground
+                    savedSettings.value = savedSettings.value.copy(isAnimatedBackground = !animated)
+
+                    saveSettings(savedSettings.value)
+                },
                 appTheme = themeState,
-                selectedThemeIndex = selectedThemeIndex,
-                onClickThemeChange = { index -> selectedThemeIndex = index }
+                selectedThemeIndex = savedSettings.value.selectedThemeIndex,
+                onClickThemeChange = { index ->
+                    savedSettings.value = savedSettings.value.copy(selectedThemeIndex = index)
+                    saveSettings(savedSettings.value)
+                }
             )
         }
     }
@@ -145,7 +167,6 @@ fun PowerProfilerSection(
 ) {
     var selectedIndex by remember { mutableIntStateOf(0) }
     var isInitialized by remember { mutableStateOf(false) }
-//    var updateCounter by remember { mutableIntStateOf(0) } // I had to use a counter as I have no idea why a boolean did not work for this case.
     var pendingUpdate by remember { mutableStateOf<Boolean?>(null) }
 
 
@@ -190,7 +211,6 @@ fun PowerProfilerSection(
                         shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
                         onClick = {
                             selectedIndex = index
-//                            updateCounter++ // Always increments so guarantees that always the update code will be run... eccentric solutions but solutions.
                             pendingUpdate = true
                         },
                         selected = selectedIndex == index,
