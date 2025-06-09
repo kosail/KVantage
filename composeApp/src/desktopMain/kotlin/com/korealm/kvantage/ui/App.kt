@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
@@ -17,6 +18,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -24,6 +26,7 @@ import com.korealm.kvantage.settings.SettingsManager
 import com.korealm.kvantage.settings.SettingsManager.saveSettings
 import com.korealm.kvantage.state.KvandClient
 import com.korealm.kvantage.state.rememberAppThemeState
+import com.korealm.kvantage.state.rememberBatteryLifeState
 import com.korealm.kvantage.ui.theme.AppTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -38,11 +41,10 @@ fun App(kvand: KvandClient) {
     val savedSettings = remember { mutableStateOf(SettingsManager.loadSettings()) }
 
     val themeState = rememberAppThemeState( savedSettings.value.isDarkMode )
+    val batteryLifeState = rememberBatteryLifeState( savedSettings.value.batteryName )
     val iconTheme = Icons.Rounded
 
-//    var isAnimatedBackground by remember { mutableStateOf( savedSettings.value.isAnimatedBackground ) }
     var isSettingsOpen by remember { mutableStateOf(false) }
-//    var selectedThemeIndex by remember { mutableIntStateOf( savedSettings.value.selectedThemeIndex ) }
 
     /* There is a limitation that I don't know if it comes from hardware or software.
      In either way, let me explain:
@@ -131,13 +133,25 @@ fun App(kvand: KvandClient) {
 
                 HorizontalDivider(modifier = Modifier.padding(top = 5.dp, bottom = 5.dp))
 
+                AnimatedVisibility(savedSettings.value.isRemainingBatteryLifeVisible) {
+                    getBatteryLife(
+                        remainingLife = batteryLifeState.batterylife,
+                        modifier = Modifier.padding(horizontal = 20.dp, vertical = 16.dp)
+                    )
+                }
+            }
+
+            AnimatedVisibility(!savedSettings.value.isRemainingBatteryLifeVisible) {
+                ShortCopyright(modifier = Modifier.padding(bottom = 10.dp))
             }
         }
 
         if (isSettingsOpen) {
             SettingsScreen(
-                onDismissRequest = { isSettingsOpen = !isSettingsOpen },
                 isDarkTheme = themeState.isDarkTheme,
+                isAnimatedBackground = savedSettings.value.isAnimatedBackground,
+                isRemainingBatteryLife = savedSettings.value.isRemainingBatteryLifeVisible,
+                onDismissRequest = { isSettingsOpen = !isSettingsOpen },
                 onThemeToggleAction = {
                     themeState.toggleTheme() // Toggle dark mode to trigger UI recomposition
 
@@ -146,19 +160,29 @@ fun App(kvand: KvandClient) {
                     savedSettings.value = savedSettings.value.copy(isDarkMode = !dark)
                     saveSettings(savedSettings.value)
                 },
-                isAnimatedBackground = savedSettings.value.isAnimatedBackground,
                 onAnimatedBackgroundToggleAction = {
                     val animated = savedSettings.value.isAnimatedBackground
                     savedSettings.value = savedSettings.value.copy(isAnimatedBackground = !animated)
-
                     saveSettings(savedSettings.value)
                 },
-                appTheme = themeState,
-                selectedThemeIndex = savedSettings.value.selectedThemeIndex,
+                onRemainingBatteryLifeAction = {
+                    val showRemaining = savedSettings.value.isRemainingBatteryLifeVisible
+                    savedSettings.value = savedSettings.value.copy(isRemainingBatteryLifeVisible = !showRemaining)
+                    saveSettings(savedSettings.value)
+                },
                 onClickThemeChange = { index ->
                     savedSettings.value = savedSettings.value.copy(selectedThemeIndex = index)
                     saveSettings(savedSettings.value)
-                }
+                },
+                onBatteryNameChange = { newName ->
+                    batteryLifeState.updateBatteryName(newName) // Update UI to show new battery information
+
+                    savedSettings.value = savedSettings.value.copy(batteryName = newName) // Update batt name on persistent settings
+                    saveSettings(savedSettings.value)
+                },
+                batteryName = batteryLifeState.batteryName,
+                appTheme = themeState,
+                selectedThemeIndex = savedSettings.value.selectedThemeIndex
             )
         }
     }
@@ -306,19 +330,18 @@ fun BatteryThreshold(
 
         SwitchWithText(
             text = Res.string.battery_threshold,
-            checked = isChecked,
+            isChecked = isChecked,
             onCheckedChange = { checked ->
                 isChecked = checked
                 pendingUpdate = checked
             },
-            checkedTrackColor = MaterialTheme.colorScheme.primary,
             modifier = modifier
         )
     } else {
         SwitchWithText(
             text = Res.string.battery_threshold,
-            checked = false,
-            enabled = false,
+            isChecked = false,
+            isEnabled = false,
             onCheckedChange = {},
             modifier = modifier
         )
@@ -422,22 +445,24 @@ fun RapidCharge(
     if (isInitialized) {
         SwitchWithText(
             text = Res.string.rapid_charge,
-            checked = isChecked,
+            isChecked = isChecked,
             onCheckedChange = { checked ->
                 isChecked = checked
                 pendingUpdate = checked
 
                 if (checked) onChangeRapidChargeToggleConservation(true)
             },
+            checkedTrackColor = MaterialTheme.colorScheme.secondary,
+            checkedThumbColor = MaterialTheme.colorScheme.secondaryContainer,
             modifier = modifier
         )
     } else {
         // Optional: show placeholder or disabled switch
         SwitchWithText(
             text = Res.string.rapid_charge,
-            checked = false,
+            isChecked = false,
             onCheckedChange = {}, // no-op
-            enabled = false, // visually disabled
+            isEnabled = false, // visually disabled
             modifier = modifier
         )
     }
@@ -450,5 +475,85 @@ fun RapidCharge(
             }
             pendingUpdate = null
         }
+    }
+}
+
+@Composable
+fun getBatteryLife(
+    remainingLife: Float,
+    modifier: Modifier = Modifier
+) {
+
+    Column (
+        modifier = modifier.fillMaxSize(),
+    ) {
+        Text(
+            text = stringResource(Res.string.battery_life),
+            fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier
+        )
+
+        if (remainingLife == -1F) {
+            Spacer(modifier = Modifier.height(13.dp))
+
+            Text(
+                text = stringResource(Res.string.battery_interface_not_found),
+                fontSize = 14.sp,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 5.dp).width(450.dp)
+            )
+        } else if (remainingLife == 0F) {
+            Spacer(modifier = Modifier.height(13.dp))
+
+            Text(
+                text = stringResource(Res.string.battery_parsing_failed),
+                fontSize = 14.sp,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 5.dp).width(450.dp)
+            )
+        } else {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxSize().padding(top = 20.dp)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = "0%",
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                        modifier = Modifier
+                    )
+
+                    LinearProgressIndicator(
+                        progress = remainingLife / 100F,
+                        color = MaterialTheme.colorScheme.tertiary,
+                        backgroundColor = MaterialTheme.colorScheme.tertiaryContainer,
+                        modifier = Modifier
+                            .size(300.dp, 15.dp)
+                            .clip(RoundedCornerShape(25))
+                    )
+
+                    Text(
+                        text = "100%",
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                        modifier = Modifier
+                    )
+                }
+
+                Text(
+                    text = "%.1f%%".format(remainingLife),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontSize = 20.sp,
+                    modifier = Modifier.padding(top = 10.dp)
+                )
+
+            }
+        }
+
     }
 }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
@@ -22,10 +23,11 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun SwitchWithText(
     @StringRes text: StringResource,
-    checked: Boolean,
-    enabled: Boolean = true,
+    isChecked: Boolean,
+    isEnabled: Boolean = true,
     onCheckedChange: (Boolean) -> Unit,
-    checkedTrackColor: Color = MaterialTheme.colorScheme.tertiary,
+    checkedTrackColor: Color = MaterialTheme.colorScheme.primary,
+    checkedThumbColor: Color = MaterialTheme.colorScheme.primaryContainer,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -39,18 +41,19 @@ fun SwitchWithText(
             text = stringResource(text),
             fontSize = 20.sp,
             color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier
+            modifier = Modifier.widthIn(max = 300.dp)
         )
 
         Switch(
-            checked = checked,
-            enabled = enabled,
+            checked = isChecked,
+            enabled = isEnabled,
             onCheckedChange = onCheckedChange,
             modifier = Modifier.padding(end = 9.dp).scale(1.1F),
             colors = SwitchDefaults.colors(
                 uncheckedThumbColor = MaterialTheme.colorScheme.surface,
                 uncheckedTrackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f),
                 checkedTrackColor = checkedTrackColor,
+                checkedThumbColor = checkedThumbColor
             )
         )
     }
