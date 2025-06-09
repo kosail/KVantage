@@ -3,13 +3,7 @@ package com.korealm.kvantage.ui
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SegmentedButton
-import androidx.compose.material3.SegmentedButtonDefaults
-import androidx.compose.material3.SingleChoiceSegmentedButtonRow
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,14 +14,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.korealm.kvantage.state.AppThemeState
 import com.korealm.kvantage.ui.theme.ThemeType
-import kvantage.composeapp.generated.resources.Res
-import kvantage.composeapp.generated.resources.animated_background
-import kvantage.composeapp.generated.resources.copyright
-import kvantage.composeapp.generated.resources.dark_mode
-import kvantage.composeapp.generated.resources.settings
-import kvantage.composeapp.generated.resources.signature
-import kvantage.composeapp.generated.resources.themes
-import kvantage.composeapp.generated.resources.with_love
+import kvantage.composeapp.generated.resources.*
 import org.jetbrains.compose.resources.stringResource
 import java.time.LocalDate
 
@@ -53,7 +40,7 @@ fun SettingsScreen(
                 5.dp,
                 MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)
             ),
-            modifier = Modifier.size(width = 430.dp, height = 500.dp)
+            modifier = Modifier.size(width = 430.dp, height = 530.dp)
         ) {
             Column (
                 modifier = Modifier
@@ -92,12 +79,12 @@ fun SettingsScreen(
                     appTheme = appTheme,
                     selectedThemeIndex = selectedThemeIndex,
                     onClickThemeChange = onClickThemeChange,
-                    modifier = Modifier
+                    modifier = Modifier.padding(15.dp)
                 )
 
                 HorizontalDivider(modifier = Modifier.padding(top = 4.dp, bottom = 4.dp))
 
-                SalutationsAndCopyright(modifier = Modifier)
+                SalutationsAndCopyright(modifier = Modifier.padding(top = 10.dp))
             }
         }
     }
@@ -117,7 +104,7 @@ fun ThemeSelector(
         ThemeType.DRACULA
     )
 
-    Column(modifier = modifier) {
+    Column(modifier = modifier.fillMaxWidth()) {
         Text(
             text = stringResource(Res.string.themes),
             fontSize = 20.sp,
