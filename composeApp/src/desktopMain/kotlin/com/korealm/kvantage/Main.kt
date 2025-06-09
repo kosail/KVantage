@@ -27,7 +27,7 @@ fun main() = application {
         title = "KVantage",
         icon = icon,
         resizable = false,
-        state = WindowState( size = DpSize(545.dp, 700.dp) )
+        state = WindowState( size = DpSize(545.dp, 850.dp) )
     ) {
         App(kvand)
     }
