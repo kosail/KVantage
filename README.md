@@ -34,12 +34,12 @@ The GUI allows toggling performance profiles, battery thresholds, and rapid char
 ❌ **Custom threshold for battery conservation**  
 ❌ **Native image packaging** (Planned. I'm not sure if it would be possible to create a .deb / .rpm or .appimage with a JAR file. Though, it was not possible to convert the JAR file into a native executable using GraalVM... so it has to be a JAR)
 
-### Dropped planned functionalities (and why):
-❌ **Tray icon support**: Sadly, KMP built-in tray support is poor on linux. I tried with KDE, Cinnamon and Hyprland but neither of them was recognized by the isTraySupported function, and it just refused to launch.
+### Deprecated functionalities (and why):
+❌ **Tray icon support**: Sadly, KMP built-in tray support is poor on linux. I tried with KDE, Cinnamon and Hyprland, but neither of them was recognized by the isTraySupported function, and it just refused to launch.
 
 I tried alternatives like [ComposeNativeTray](https://github.com/kdroidFilter/ComposeNativeTray), but for some reason, the main action kills the app instead of toggling its visibility. I first thought it was a bug of my code, but after several hours of trial and error and having long discussions with AI, I couldn't figure out what's wrong. I desisted to use it.
 
-Swing's system tray may work, but it looks horrid and I think it might cause more damage than adding value. And, the last resource I thought of libayatana-appindicator, and that's what I'm looking into. I'll probably just drop this feature though...
+Swing's system tray may work, but it looks horrid and I think it might cause more damage than adding value. And, the last resource I thought of libayatana-appindicator, and that's what I'm looking into. I'll probably just drop this feature though, because it requires using JNA and low level interop which I'm an absolutely beginner with.
 
 
 ---
