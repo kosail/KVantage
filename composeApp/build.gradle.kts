@@ -41,7 +41,7 @@ compose.desktop {
         mainClass = "com.korealm.kvantage.MainKt"
 
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            targetFormats(TargetFormat.Deb)
             packageName = "com.korealm.kvantage"
             packageVersion = "1.0.0"
         }
