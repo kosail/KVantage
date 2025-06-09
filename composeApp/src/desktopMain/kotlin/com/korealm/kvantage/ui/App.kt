@@ -7,7 +7,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
@@ -82,7 +84,7 @@ fun App(kvand: KvandClient) {
             Column(
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
             ) {
                 Box(
                     contentAlignment = Alignment.Center,
@@ -110,7 +112,7 @@ fun App(kvand: KvandClient) {
                 }
 
                 PowerProfilerSection(iconTheme, kvand, Modifier)
-                HorizontalDivider(modifier = Modifier.padding(top = 10.dp, bottom = 10.dp))
+                HorizontalDivider(modifier = Modifier.padding(top = 16.dp, bottom = 5.dp))
 
                 BatteryThreshold(
                     iconTheme = iconTheme,
@@ -119,13 +121,16 @@ fun App(kvand: KvandClient) {
                     onChangeRapidChargeToggleConservation = { newValue -> isRapidChargeToggleConservation = newValue },
                     modifier = Modifier
                 )
-                HorizontalDivider(modifier = Modifier.padding(top = 10.dp, bottom = 10.dp))
+                HorizontalDivider(modifier = Modifier.padding(top = 16.dp, bottom = 5.dp))
 
                 RapidCharge(
                     kvand = kvand,
                     onChangeRapidChargeToggleConservation = { newValue -> isRapidChargeToggleConservation = newValue },
                     modifier = Modifier
                 )
+
+                HorizontalDivider(modifier = Modifier.padding(top = 5.dp, bottom = 5.dp))
+
             }
         }
 
@@ -307,7 +312,7 @@ fun BatteryThreshold(
                 pendingUpdate = checked
             },
             checkedTrackColor = MaterialTheme.colorScheme.primary,
-            modifier = modifier.padding(top = 12.dp)
+            modifier = modifier
         )
     } else {
         SwitchWithText(
@@ -315,7 +320,7 @@ fun BatteryThreshold(
             checked = false,
             enabled = false,
             onCheckedChange = {},
-            modifier = modifier.padding(top = 12.dp)
+            modifier = modifier
         )
     }
 
@@ -432,8 +437,8 @@ fun RapidCharge(
             text = Res.string.rapid_charge,
             checked = false,
             onCheckedChange = {}, // no-op
-            modifier = modifier,
-            enabled = false // visually disabled
+            enabled = false, // visually disabled
+            modifier = modifier
         )
     }
 

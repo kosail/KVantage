@@ -40,17 +40,18 @@ fun SettingsScreen(
                 5.dp,
                 MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)
             ),
-            modifier = Modifier.size(width = 430.dp, height = 530.dp)
+            modifier = Modifier.size(width = 440.dp, height = 530.dp)
         ) {
             Column (
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 26.dp, vertical = 30.dp),
+//                    .padding(horizontal = 26.dp, vertical = 30.dp),
+                    .padding(vertical = 30.dp),
             ) {
                 Text(
                     text = stringResource(Res.string.settings),
                     style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier
+                    modifier = Modifier.padding(start = 26.dp)
                 )
 
                 Spacer(Modifier.height(30.dp))
@@ -60,20 +61,20 @@ fun SettingsScreen(
                     checked = isDarkTheme,
                     onCheckedChange = { onThemeToggleAction() },
                     checkedTrackColor = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier
+                    modifier = Modifier.padding(horizontal = 20.dp)
                 )
 
-                HorizontalDivider(modifier = Modifier.padding(top = 4.dp, bottom = 4.dp))
+                HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp, horizontal = 26.dp))
 
                 SwitchWithText(
                     text = Res.string.animated_background,
                     checked = isAnimatedBackground,
                     onCheckedChange = { onAnimatedBackgroundToggleAction() },
                     checkedTrackColor = MaterialTheme.colorScheme.secondary,
-                    modifier = Modifier
+                    modifier = Modifier.padding(horizontal = 20.dp)
                 )
 
-                HorizontalDivider(modifier = Modifier.padding(top = 4.dp, bottom = 4.dp))
+                HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp, horizontal = 26.dp))
 
                 ThemeSelector(
                     appTheme = appTheme,
@@ -82,7 +83,7 @@ fun SettingsScreen(
                     modifier = Modifier.padding(15.dp)
                 )
 
-                HorizontalDivider(modifier = Modifier.padding(top = 4.dp, bottom = 4.dp))
+                HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp, horizontal = 26.dp))
 
                 SalutationsAndCopyright(modifier = Modifier.padding(top = 10.dp))
             }
@@ -109,7 +110,7 @@ fun ThemeSelector(
             text = stringResource(Res.string.themes),
             fontSize = 20.sp,
             color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier
+            modifier = Modifier.padding(horizontal = 24.dp)
         )
 
         SingleChoiceSegmentedButtonRow(
