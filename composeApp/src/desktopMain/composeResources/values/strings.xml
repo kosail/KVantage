@@ -16,4 +16,9 @@
     <string name="with_love">With love, from Honduras.</string>
     <string name="signature">kosail in the korealm</string>
     <string name="themes">Themes</string>
+    <string name="show_battery_life">Show battery life</string>
+    <string name="battery_name">Battery name</string>
+    <string name="battery_life">Remaining battery life</string>
+    <string name="battery_interface_not_found">Cannot get the battery information because the interface seems not to comply with the standard structure ("/sys/class/power_supply/BAT*/*")</string>
+    <string name="battery_parsing_failed">Cannot get battery information due an error parsing the energy_full_design and energy_full files, inside /sys/class/power_supply/BAT*/*</string>
 </resources>

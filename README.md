@@ -10,7 +10,9 @@
 ## 🌻 Current Status
 The app is fully functional. The only thing that is not yet implemented is the option to set a customized battery threshold. By now, it is hardcoded to the default value (which is 80%).
 
-The GUI allows toggling performance profiles, battery thresholds, and rapid charge settings. Designed to be intuitive, light, and visually appealing. It has four available themes to choose from on settings, and supports up to three languages (Spanish, English and Japanese). It should change language based on your System's locale.
+**The GUI allows toggling performance profiles, battery thresholds, and rapid charge settings.** It also shows the remaining battery life (by default, it assumes your battery name is `BAT0`. However, it can be customized from settings).
+
+**Designed to be intuitive, light, and visually appealing**. It has four available themes to choose from on settings, and supports up to three languages (Spanish, English and Japanese). It should change language based on your System's locale.
   <br><br>
 
 ### **Known Limitations:**
@@ -22,13 +24,14 @@ The GUI allows toggling performance profiles, battery thresholds, and rapid char
 
 ---
 
-## 🌹 Features (Planned & Implemented)
+## 🌹 Features
 
 > **Note:** ⚠️  Means partially implemented.
 
 ✅ **Toggle Performance Profiles** (e.g., Powersave, Performance, Intelligent Cooling)  
 ✅ **Battery Charge Threshold Management**  (AKA limit battery charge at 80% to improve battery lifespan)  
 ✅ **Rapid Charge Enable/Disable**  
+✅ **Show remaining battery life (with option to hide it from settings)**  
 ✅ **Multiple dark and light themes (by now only gruvbox is supported)**   
 ✅ **Settings persistance (by now settings are only store at runtime)**  
 ❌ **Custom threshold for battery conservation**  

@@ -16,4 +16,9 @@
     <string name="with_love">ホンジュラスより愛を込めて。</string>
     <string name="signature">korealmのkosail</string>
     <string name="themes">テーマ</string>
+    <string name="show_battery_life">バッテリーの状態を表示</string>
+    <string name="battery_name">バッテリーの名</string>
+    <string name="battery_life">バッテリーの残り</string>
+    <string name="battery_interface_not_found">バッテリー情報を読み込めませんでした（システムの仕様と合いません）</string>
+    <string name="battery_parsing_failed">バッテリー情報の読み込みに失敗しました（データ処理エラー）</string>
 </resources>

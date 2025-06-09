@@ -14,5 +14,11 @@
     <string name="animated_background">Animar fondo</string>
     <string name="copyright">KVantage ©</string>
     <string name="with_love">Con amor, desde Honduras.</string>
+    <string name="signature">kosail in the korealm</string>
     <string name="themes">Temas</string>
+    <string name="show_battery_life">Mostrar vida restante de la batería</string>
+    <string name="battery_name">Nombre de la batería</string>
+    <string name="battery_life">Vida restante de la batería</string>
+    <string name="battery_interface_not_found">No se puede obtener la información de la batería porque la interfaz no parece cumplir con la estructura estándar (/sys/class/power_supply/BAT*/*)</string>
+    <string name="battery_parsing_failed">No se puede obtener la información de la batería debido a un error al analizar los archivos energy_full_design y energy_full en /sys/class/power_supply/BAT*/*</string>
 </resources>
