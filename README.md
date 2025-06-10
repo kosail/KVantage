@@ -55,7 +55,7 @@ All themes have their animated and plain color background. However, I will only 
   <summary>More images over here:</summary>
 
 ### Gruvbox Theme (Animated theme disabled)
-![Animated Background OFF with Gruvbox theme, and settings](repo_images/gruvbox_theme_2_and_settings)
+![Animated Background OFF with Gruvbox theme, and settings](repo_images/gruvbox_theme_2_and_settings.png)
 
 ### Material You Theme
 ![Animated Background ON with Material theme](repo_images/material_theme.png)
