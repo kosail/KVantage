@@ -1,0 +1,26 @@
+<!-- This was IA translated, so it won't be perfect -->
+
+<resources>
+    <string name="performance_profile">Profil de performance</string>
+    <string name="power_profile_performance">Performance</string>
+    <string name="power_profile_balanced">Refroidissement intelligent</string>
+    <string name="power_profile_powersave">Économie d\'énergie</string>
+    <string name="battery_threshold">Seuil de batterie</string>
+    <string name="battery_threshold_warning">Notez que le seuil personnalisé n\'est pas disponible sur tous les ordinateurs Lenovo. C\'est une fonctionnalité réservée à certains modèles.</string>
+    <string name="enable">Activer</string>
+    <string name="rapid_charge">Charge rapide</string>
+    <string name="percent_icon">Icône de pourcentage</string>
+    <string name="settings">Paramètres</string>
+    <string name="settings_button_content_description">Bouton des paramètres</string>
+    <string name="dark_mode">Mode sombre</string>
+    <string name="animated_background">Fond animé</string>
+    <string name="copyright">KVantage ©</string>
+    <string name="with_love">Avec amour, depuis le Honduras.</string>
+    <string name="signature">kosail dans le korealm</string>
+    <string name="themes">Thèmes</string>
+    <string name="show_battery_life">Afficher l\'état de la batterie</string>
+    <string name="battery_name">Nom de la batterie</string>
+    <string name="battery_life">Autonomie restante</string>
+    <string name="battery_interface_not_found">Impossible de lire les informations de la batterie (structure système non reconnue).</string>
+    <string name="battery_parsing_failed">Erreur de lecture des données de la batterie.</string>
+</resources>

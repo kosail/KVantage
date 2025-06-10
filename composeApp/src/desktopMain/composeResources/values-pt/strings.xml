@@ -1,0 +1,26 @@
+<!-- This was IA translated, so it won't be perfect -->
+
+<resources>
+    <string name="performance_profile">Perfil de Desempenho</string>
+    <string name="power_profile_performance">Desempenho</string>
+    <string name="power_profile_balanced">Refrigeração Inteligente</string>
+    <string name="power_profile_powersave">Economia de Energia</string>
+    <string name="battery_threshold">Limite de Carga</string>
+    <string name="battery_threshold_warning">Atenção: nem todos os notebooks Lenovo permitem ajustar esse valor. É um recurso exclusivo de alguns modelos.</string>
+    <string name="enable">Ativar</string>
+    <string name="rapid_charge">Carga Rápida</string>
+    <string name="percent_icon">Ícone com Porcentagem</string>
+    <string name="settings">Configurações</string>
+    <string name="settings_button_content_description">Botão de Configurações</string>
+    <string name="dark_mode">Modo Escuro</string>
+    <string name="animated_background">Plano de Fundo Animado</string>
+    <string name="copyright">KVantage ©</string>
+    <string name="with_love">Com carinho, de Honduras.</string>
+    <string name="signature">kosail no korealm</string>
+    <string name="themes">Temas</string>
+    <string name="show_battery_life">Mostrar duração da bateria</string>
+    <string name="battery_name">Nome da bateria</string>
+    <string name="battery_life">Duração restante da bateria</string>
+    <string name="battery_interface_not_found">Não foi possível obter as informações da bateria. A interface parece não seguir a estrutura padrão ("/sys/class/power_supply/BAT*/*").</string>
+    <string name="battery_parsing_failed">Erro ao ler os dados da bateria. Houve um problema ao acessar os arquivos energy_full_design e energy_full em /sys/class/power_supply/BAT*/*.</string>
+</resources>
