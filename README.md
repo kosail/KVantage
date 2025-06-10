@@ -40,7 +40,7 @@ The app is fully functional. The only thing that is not yet implemented is the o
 
 I tried alternatives like [ComposeNativeTray](https://github.com/kdroidFilter/ComposeNativeTray), but for some reason, the main action kills the app instead of toggling its visibility. I first thought it was a bug of my code, but after several hours of trial and error and having long discussions with AI, I couldn't figure out what's wrong. I desisted to use it.
 
-Swing's system tray may work, but it looks horrid and I think it might cause more damage than adding value. And, the last resource I thought of libayatana-appindicator, and that's what I'm looking into. I'll probably just drop this feature though, because it requires using JNA and low level interop which I'm an absolutely beginner with.
+Swing's system tray may work, but it looks horrid and I think it might cause more damage than adding value. Still, I will look into that later.
 
 
 ---
