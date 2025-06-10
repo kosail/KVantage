@@ -10,9 +10,7 @@
 ## 🌻 Current Status
 The app is fully functional. The only thing that is not yet implemented is the option to set a customized battery threshold. By now, it is hardcoded to the default value (which is 80%).
 
-**The GUI allows toggling performance profiles, battery thresholds, and rapid charge settings.** It also shows the remaining battery life (by default, it assumes your battery name is `BAT0`. However, it can be customized from settings).
-
-**Designed to be intuitive, light, and visually appealing**. It has four available themes to choose from on settings, and supports up to seven languages. It should change language based on your System's locale.
+**The GUI allows toggling performance profiles, battery thresholds, and rapid charge settings.** It also shows the remaining battery life. **Designed to be intuitive, light, and visually appealing**. It has four available themes to choose from on settings, and supports up to eight languages. It should change language based on your System's locale.
   <br><br>
 
 ### **Known Limitations:**
@@ -33,9 +31,9 @@ The app is fully functional. The only thing that is not yet implemented is the o
 ✅ **Rapid Charge Enable/Disable**  
 ✅ **Show remaining battery life (with option to hide it from settings)**  
 ✅ **Multiple dark and light themes**   
-✅ **Multiple languages available (English, Spanish and Japanese were made by me, while German, French, Portuguese and Chinese are IA translated**  
+✅ **Multiple languages available (English, Spanish and Japanese were made by me, while German, French, Portuguese, Korean and Chinese are IA translated)**  
 ❌ **Custom threshold for battery conservation**  
-❌ **Native image packaging** (Planned. I'm not sure if it would be possible to create a .deb / .rpm or .appimage with a JAR file. Though, it was not possible to convert the JAR file into a native executable using GraalVM... so it has to be a JAR)
+⚠️ **Native image packaging** (Though, I was not able to build a DEB/RPM/AppImage, I implemented a embedded installer that will copy the app into your local user bin folder and it works fantastic.)
 
 ### Deprecated functionalities (and why):
 ❌ **Tray icon support**: Sadly, KMP built-in tray support is poor on linux. I tried with KDE, Cinnamon and Hyprland, but neither of them was recognized by the isTraySupported function, and it just refused to launch.

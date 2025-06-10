@@ -1,5 +1,6 @@
 package com.korealm.kvantage.state
 
+import androidx.compose.ui.window.ApplicationScope
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.File
@@ -7,6 +8,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
+import kotlin.system.exitProcess
 
 class KvandClient private constructor(
     private val process: Process,
@@ -65,7 +67,8 @@ class KvandClient private constructor(
                 javax.swing.JOptionPane.ERROR_MESSAGE
             )
 
-            throw IllegalStateException("Backend service failed to start (likely root permission issue)")
+            System.err.println("Backend service failed to start (likely root permission issue)")
+            exitProcess(1)
         }
     }
 

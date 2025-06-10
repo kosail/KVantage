@@ -1,6 +1,13 @@
 <!-- This was IA translated, so it won't be perfect -->
 
 <resources>
+    <string name="first_run_title">欢迎使用 KVantage！</string>
+    <string name="ask_install">这是你第一次使用这款应用。%s要安装 KVantage 吗？%s（安装会保存在 ~/.local/bin）</string>
+    <string name="okay">好的</string>
+    <string name="no">不</string>
+    <string name="dont_ask">不要，并且以后别再提示了</string>
+    <string name="success_install">安装成功。</string>
+    <string name="declined_forever_install">你拒绝了安装请求，我们不会再提醒你。</string>
     <string name="performance_profile">性能模式</string>
     <string name="power_profile_performance">高性能</string>
     <string name="power_profile_balanced">智能散热</string>

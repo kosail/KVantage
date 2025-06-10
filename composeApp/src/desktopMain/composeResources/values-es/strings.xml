@@ -1,4 +1,12 @@
 <resources>
+    <string name="first_run_title">¡Bienvenido a KVantage!</string>
+    <string name="ask_install">Hemos notado que es la primera vez que usas la app.%s¿Te gustaría instalar KVantage?%s(La instalación es local, en ~/.local/bin)</string>
+    <string name="okay">Aceptar</string>
+    <string name="no">Rechazar</string>
+    <string name="dont_ask">Rechazar, y no volver a preguntar.</string>
+    <string name="success_install">La instalación fue exitosa.</string>
+    <string name="declined_forever_install">La instalación ha sido rechazada. No volveremos a preguntarte.</string>
+
     <string name="performance_profile">Perfil de energía</string>
     <string name="power_profile_performance">Alto rendimiento</string>
     <string name="power_profile_balanced">Balanceado</string>

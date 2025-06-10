@@ -43,7 +43,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Deb)
             packageName = "com.korealm.kvantage"
-            packageVersion = "1.0.0"
+            packageVersion = "1.0.1"
         }
 
     }

@@ -1,4 +1,12 @@
 <resources>
+    <string name="first_run_title">KVantageへようこそ！</string>
+    <string name="ask_install">今回が初めての起動のようです。%sKVantageをインストールしますか？%s（インストール先：~/.local/bin）</string>
+    <string name="okay">はい</string>
+    <string name="no">いいえ</string>
+    <string name="dont_ask">いいえ、今後は聞かないでください。</string>
+    <string name="success_install">インストールが完了しました。</string>
+    <string name="declined_forever_install">インストールは拒否されました。今後は確認しません。</string>
+
     <string name="performance_profile">パフォーマンスプロファイル</string>
     <string name="power_profile_performance">ハイパフォーマンス</string>
     <string name="power_profile_balanced">インテリジェント冷却</string>

@@ -1,6 +1,13 @@
 <!-- This was IA translated, so it won't be perfect -->
 
 <resources>
+    <string name="first_run_title">Willkommen bei KVantage!</string>
+    <string name="ask_install">Es sieht so aus, als ob du KVantage zum ersten Mal startest.%sMöchtest du die App installieren?%s(Die Installation erfolgt lokal unter ~/.local/bin)</string>
+    <string name="okay">Alles klar</string>
+    <string name="no">Nein</string>
+    <string name="dont_ask">Nein, und bitte nicht nochmal fragen.</string>
+    <string name="success_install">Die Installation war erfolgreich.</string>
+    <string name="declined_forever_install">Die Installation wurde dauerhaft abgelehnt. Wir fragen dich nicht nochmal.</string>
     <string name="performance_profile">Leistungsprofil</string>
     <string name="power_profile_performance">Leistung</string>
     <string name="power_profile_balanced">Intelligente Kühlung</string>
