@@ -1,0 +1,26 @@
+<!-- This was IA translated, so it won't be perfect -->
+
+<resources>
+    <string name="performance_profile">性能模式</string>
+    <string name="power_profile_performance">高性能</string>
+    <string name="power_profile_balanced">智能散热</string>
+    <string name="power_profile_powersave">省电模式</string>
+    <string name="battery_threshold">电池阈值</string>
+    <string name="battery_threshold_warning">请注意，并不是所有联想笔记本都支持设置此值。只有部分高端机型才支持这个功能。</string>
+    <string name="enable">启用</string>
+    <string name="rapid_charge">快速充电</string>
+    <string name="percent_icon">百分比图标</string>
+    <string name="settings">设置</string>
+    <string name="settings_button_content_description">设置按钮</string>
+    <string name="dark_mode">深色模式</string>
+    <string name="animated_background">动态背景</string>
+    <string name="copyright">KVantage ©</string>
+    <string name="with_love">来自洪都拉斯的爱。</string>
+    <string name="signature">kosail 在 korealm</string>
+    <string name="themes">主题</string>
+    <string name="show_battery_life">显示电池续航</string>
+    <string name="battery_name">电池名称</string>
+    <string name="battery_life">剩余电量时间</string>
+    <string name="battery_interface_not_found">无法获取电池信息，可能是因为系统接口结构不符合标准格式（“/sys/class/power_supply/BAT*/*”）。</string>
+    <string name="battery_parsing_failed">无法读取电池信息，读取 energy_full_design 与 energy_full 文件时发生错误（位于 /sys/class/power_supply/BAT*/*）。</string>
+</resources>

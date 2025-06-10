@@ -76,8 +76,8 @@ class KvandClient private constructor(
         writer.flush()
 
         val response = reader.readLine()
-        println("[GUI → kbatd] $command")
-        println("[GUI ← kbatd] $response")
+        println("[GUI -> kbatd] $command")
+        println("[GUI <- kbatd] $response")
 
         return response ?: "ERROR"
     }

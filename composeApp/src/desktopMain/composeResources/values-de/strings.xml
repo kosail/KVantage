@@ -1,0 +1,26 @@
+<!-- This was IA translated, so it won't be perfect -->
+
+<resources>
+    <string name="performance_profile">Leistungsprofil</string>
+    <string name="power_profile_performance">Leistung</string>
+    <string name="power_profile_balanced">Intelligente Kühlung</string>
+    <string name="power_profile_powersave">Energiesparen</string>
+    <string name="battery_threshold">Akkuschwelle</string>
+    <string name="battery_threshold_warning">Bitte beachte, dass sich dieser Wert nicht bei allen Lenovo-Laptops anpassen lässt. Diese Funktion ist nur bei bestimmten Modellen verfügbar.</string>
+    <string name="enable">Aktivieren</string>
+    <string name="rapid_charge">Schnellladen</string>
+    <string name="percent_icon">Prozentanzeige</string>
+    <string name="settings">Einstellungen</string>
+    <string name="settings_button_content_description">Einstellungen öffnen</string>
+    <string name="dark_mode">Dunkelmodus</string>
+    <string name="animated_background">Animierter Hintergrund</string>
+    <string name="copyright">KVantage ©</string>
+    <string name="with_love">Mit Liebe aus Honduras.</string>
+    <string name="signature">kosail im korealm</string>
+    <string name="themes">Designs</string>
+    <string name="show_battery_life">Akkulaufzeit anzeigen</string>
+    <string name="battery_name">Akkuname</string>
+    <string name="battery_life">Verbleibende Akkulaufzeit</string>
+    <string name="battery_interface_not_found">Die Akkuinformationen konnten nicht abgerufen werden, da die Schnittstelle nicht dem erwarteten Standardformat entspricht ("/sys/class/power_supply/BAT*/*").</string>
+    <string name="battery_parsing_failed">Die Akkuinformationen konnten nicht geladen werden, da beim Auslesen der Dateien energy_full_design und energy_full in /sys/class/power_supply/BAT*/* ein Fehler aufgetreten ist.</string>
+</resources>
