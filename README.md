@@ -28,12 +28,12 @@ The app is fully functional. The only thing that is not yet implemented is the o
 
 > **Note:** ⚠️  Means partially implemented.
 
-✅ **Toggle Performance Profiles** (e.g., Powersave, Performance, Intelligent Cooling)  
+✅ **Toggle Performance Profiles** (Power saving, Extreme Performance, Intelligent Cooling)  
 ✅ **Battery Charge Threshold Management**  (AKA limit battery charge at 80% to improve battery lifespan)  
 ✅ **Rapid Charge Enable/Disable**  
 ✅ **Show remaining battery life (with option to hide it from settings)**  
-✅ **Multiple dark and light themes (by now only gruvbox is supported)**   
-✅ **Settings persistance (by now settings are only store at runtime)**  
+✅ **Multiple dark and light themes**   
+✅ **Settings persistance**  
 ❌ **Custom threshold for battery conservation**  
 ❌ **Native image packaging** (Planned. I'm not sure if it would be possible to create a .deb / .rpm or .appimage with a JAR file. Though, it was not possible to convert the JAR file into a native executable using GraalVM... so it has to be a JAR)
 
@@ -55,7 +55,7 @@ All themes have their animated and plain color background. However, I will only 
   <summary>More images over here:</summary>
 
 ### Gruvbox Theme (Animated theme disabled)
-![Animated Background OFF with Gruvbox theme](repo_images/gruvbox_theme_2.png)
+![Animated Background OFF with Gruvbox theme, and settings](repo_images/gruvbox_theme_2_and_settings)
 
 ### Material You Theme
 ![Animated Background ON with Material theme](repo_images/material_theme.png)
@@ -66,8 +66,6 @@ All themes have their animated and plain color background. However, I will only 
 ### Dracula Theme
 ![Animated Background ON with Dracula theme](repo_images/dracula_theme.png)
 
-
-[//]: # (![Settings]&#40;repo_images/gruvbox_theme_3.png&#41;)
 
 </details>
 
