@@ -67,7 +67,7 @@ class KvandClient private constructor(
                 javax.swing.JOptionPane.ERROR_MESSAGE
             )
 
-            System.err.println("Backend service failed to start (likely root permission issue)")
+            System.err.println("ERROR: Backend service failed to start (likely root permission issue).")
             exitProcess(1)
         }
     }

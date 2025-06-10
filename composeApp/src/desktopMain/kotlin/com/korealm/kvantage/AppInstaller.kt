@@ -20,8 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.korealm.kvantage.AppInstaller.currentPath
-import com.korealm.kvantage.AppInstaller.declinedInstall
+import com.korealm.kvantage.AppInstaller.writeFlag
 import com.korealm.kvantage.AppInstaller.targetPath
 import com.korealm.kvantage.ui.theme.GruvboxDarkText
 import com.korealm.kvantage.ui.theme.GruvboxLightPrimary
@@ -50,6 +49,8 @@ object AppInstaller {
 
     val localKvantageConfig = Paths.get(home, ".config", "Kvantage")
     val flagFile = localKvantageConfig.resolve("preferences.ksl")
+
+    val flagContent = "Don't delete this file, as it works as a flag to let know Kvantage that this program has been already run, and that you declined the installation. If you delete it, KVantage will prompt you again to install it on next launch."
 
     fun isFirstRun(): Boolean {
         val flagExists = localKvantageConfig.exists() && flagFile.exists()
@@ -84,10 +85,12 @@ object AppInstaller {
         val embeddedIcon = this::class.java.classLoader.getResourceAsStream("composeResources/kvantage.composeapp.generated.resources/drawable/favicon.png") ?: throw IOException("Could not find embedded icon at composeResources!")
 
         embeddedIcon.use { input -> input.copyTo(iconTarget.outputStream()) }
+
+        // Flag is needed in case of using the app as a portable executable
+        writeFlag()
     }
 
-    fun declinedInstall() {
-        val flagContent = "Don't delete this file, as it works as a flag to let know Kvantage that this program has been already run, and that you declined installation forever. If you delete it, KVantage will prompt you again to install it on next launch."
+    fun writeFlag() { // This is needed, as it will stop Kvantage from asking for installation at every start up
         Files.createDirectories(localKvantageConfig)
         Files.write(flagFile, flagContent.toByteArray())
     }
@@ -171,7 +174,7 @@ fun InstallDialog(
 
                             Button(
                                 onClick = {
-                                    declinedInstall()
+                                    writeFlag()
                                     showConfirmation = true
                                     userChoice = false
                                 },
