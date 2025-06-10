@@ -1,6 +1,9 @@
 package com.korealm.kvantage
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
@@ -18,18 +21,33 @@ fun main() = application {
     // the app GUI (this one) should NEVER be started as root for obvious security reasons.
     if (isRunningAsRoot()) forbidStartAsRoot(::exitApplication)
 
-    // Launch daemon ONCE and hold reference
-    val kvand = remember { KvandClient.getInstance() }
     val icon = painterResource(Res.drawable.favicon)
+    var isInstallDialogOpen by remember { mutableStateOf(AppInstaller.isFirstRun()) }
 
-    Window(
-        onCloseRequest = ::exitApplication,
-        title = "KVantage",
-        icon = icon,
-        resizable = false,
-        state = WindowState( size = DpSize(545.dp, 850.dp) )
-    ) {
-        App(kvand)
+    if (isInstallDialogOpen) {
+        Window(
+            onCloseRequest = ::exitApplication,
+            title = "KVantage",
+            icon = icon,
+            resizable = false,
+            state = WindowState( size = DpSize(530.dp, 360.dp) )
+        ) {
+            InstallDialog(
+                onDismissRequest = { isInstallDialogOpen = false },
+            )
+        }
+    } else {
+        val kvand = remember { KvandClient.getInstance() } // Launch daemon ONCE and hold reference
+
+        Window(
+            onCloseRequest = ::exitApplication,
+            title = "KVantage",
+            icon = icon,
+            resizable = false,
+            state = WindowState( size = DpSize(545.dp, 850.dp) )
+        ) {
+            App(kvand)
+        }
     }
 }
 

@@ -1,0 +1,34 @@
+<!-- This was IA translated, so it won't be perfect -->
+
+<resources>
+    <string name="first_run_title">KVantage에 오신 걸 환영합니다!</string>
+    <string name="ask_install">처음으로 앱을 실행하신 것 같네요.%sKVantage를 설치하시겠어요?%s(설치는 로컬 폴더 ~/.local/bin 에 진행됩니다)</string>
+    <string name="okay">확인</string>
+    <string name="no">아니요</string>
+    <string name="dont_ask">아니요, 다시 묻지 마세요.</string>
+    <string name="success_install">설치가 성공적으로 완료됐어요.</string>
+    <string name="declined_forever_install">설치를 하지 않기로 하셨어요. 이제 다시 묻지 않을게요.</string>
+
+    <string name="performance_profile">성능 모드</string>
+    <string name="power_profile_performance">고성능</string>
+    <string name="power_profile_balanced">지능형 쿨링</string>
+    <string name="power_profile_powersave">절전 모드</string>
+    <string name="battery_threshold">배터리 제한</string>
+    <string name="battery_threshold_warning">모든 레노버 노트북에서 이 값을 설정할 수 있는 건 아니에요. 일부 고급 모델만 지원해요.</string>
+    <string name="enable">사용하기</string>
+    <string name="rapid_charge">급속 충전</string>
+    <string name="percent_icon">배터리 퍼센트 아이콘</string>
+    <string name="settings">설정</string>
+    <string name="settings_button_content_description">설정 버튼</string>
+    <string name="dark_mode">다크 모드</string>
+    <string name="animated_background">움직이는 배경</string>
+    <string name="copyright">KVantage ©</string>
+    <string name="with_love">온 마음을 담아, 온두라스에서.</string>
+    <string name="signature">korealm의 kosail</string>
+    <string name="themes">테마</string>
+    <string name="show_battery_life">배터리 시간 보기</string>
+    <string name="battery_name">배터리 이름</string>
+    <string name="battery_life">남은 배터리 시간</string>
+    <string name="battery_interface_not_found">배터리 정보를 가져올 수 없어요. 시스템 구조가 표준 경로("/sys/class/power_supply/BAT*/*")를 따르지 않는 것 같아요.</string>
+    <string name="battery_parsing_failed">배터리 정보를 불러오는 데 실패했어요. energy_full_design 또는 energy_full 파일을 읽는 중 오류가 발생했어요. (위치: /sys/class/power_supply/BAT*/*)</string>
+</resources>

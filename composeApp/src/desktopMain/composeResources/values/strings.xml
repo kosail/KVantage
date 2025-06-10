@@ -1,4 +1,11 @@
 <resources>
+    <string name="first_run_title">Welcome to KVantage!</string>
+    <string name="ask_install">We noticed that this is your first time running the app.%sWould you like to install KVantage?%s(The installation is performed locally, at ~/.local/bin)</string>
+    <string name="okay">Okay</string>
+    <string name="no">No</string>
+    <string name="dont_ask">No, and don't ask me again.</string>
+    <string name="success_install">The installation was successful.</string>
+    <string name="declined_forever_install">Installation declined forever. We will not ask you again.</string>
     <string name="performance_profile">Performance Profile</string>
     <string name="power_profile_performance">Performance</string>
     <string name="power_profile_balanced">Intelligent Cooling</string>
@@ -18,7 +25,7 @@
     <string name="themes">Themes</string>
     <string name="show_battery_life">Show battery life</string>
     <string name="battery_name">Battery name</string>
-    <string name="battery_life">Remaining battery life</string>
+    <string name="battery_life">Remaining battery lifespan</string>
     <string name="battery_interface_not_found">Cannot get the battery information because the interface seems not to comply with the standard structure ("/sys/class/power_supply/BAT*/*")</string>
     <string name="battery_parsing_failed">Cannot get battery information due an error parsing the energy_full_design and energy_full files, inside /sys/class/power_supply/BAT*/*</string>
 </resources>
