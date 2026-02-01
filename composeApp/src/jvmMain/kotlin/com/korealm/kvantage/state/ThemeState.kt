@@ -5,7 +5,7 @@ import androidx.compose.runtime.*
 import com.korealm.kvantage.models.ThemeType
 
 class AppThemeState(initialDarkTheme: Boolean) {
-    var currentTheme by mutableStateOf(ThemeType.GRUVBOX)
+    var currentTheme by mutableStateOf(ThemeType.SEA)
     var isDarkTheme by mutableStateOf(initialDarkTheme)
         private set
 

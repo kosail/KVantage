@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.korealm.kvantage.state.AppThemeState
 import com.korealm.kvantage.models.ThemeType
+import com.korealm.kvantage.state.AppThemeState
 import com.korealm.kvantage.utils.getSegmentedButtonShape
 import kvantage.composeapp.generated.resources.Res
 import kvantage.composeapp.generated.resources.themes
@@ -22,12 +22,7 @@ fun ThemeSelector(
     appTheme: AppThemeState,
     modifier: Modifier = Modifier
 ) {
-    val themes = listOf(
-        ThemeType.GRUVBOX,
-        ThemeType.MATERIAL,
-        ThemeType.KANAGAWA,
-        ThemeType.DRACULA
-    )
+    val themes = ThemeType.entries
 
     Column(modifier = modifier.fillMaxWidth()) {
         Text(

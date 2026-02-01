@@ -7,12 +7,12 @@ import com.korealm.kvantage.models.ThemeType
 
 @Composable
 fun AppTheme(
-    themeType: ThemeType = ThemeType.DRACULA,
+    themeType: ThemeType = ThemeType.SEA,
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
     val colorScheme = when (themeType) {
-        ThemeType.GRUVBOX -> if (darkTheme) gruvboxDarkColors() else gruvboxLightColors()
+        ThemeType.SEA -> if (darkTheme) whisperingSeaDarkColors() else whisperingSeaLightColors()
         ThemeType.MATERIAL -> if (darkTheme) materialYouDarkColors() else materialYouLightColors()
         ThemeType.DRACULA -> if (darkTheme) draculaDarkColors() else draculaLightColors()
         ThemeType.KANAGAWA -> if (darkTheme) kanagawaDarkColors() else kanagawaLightColors()

@@ -44,25 +44,15 @@ I will look into this later.
 
 
 ---
-##  🪻 Themes
-All themes have their animated and plain color background. However, I will only post screenshots of each theme with the animated background. The only exception will be Gruvbox, as it is the default colorscheme.
+##  🪻 Screenshots
 
-### Gruvbox Theme (Default theme)
+### Whispering Sea Theme
 ![Animated Background ON with Gruvbox theme](repo_images/gruvbox_theme_1.png)
 <details>
   <summary>More images over here:</summary>
 
-### Gruvbox Theme (Animated theme disabled)
+### Whispering Sea Theme (Animated theme disabled)
 ![Animated Background OFF with Gruvbox theme, and settings](repo_images/gruvbox_theme_2_and_settings.png)
-
-### Material You Theme
-![Animated Background ON with Material theme](repo_images/material_theme.png)
-
-### Kanagawa Theme
-![Animated Background ON with Kanagawa theme](repo_images/kanagawa_theme.png)
-
-### Dracula Theme
-![Animated Background ON with Dracula theme](repo_images/dracula_theme.png)
 
 
 </details>
