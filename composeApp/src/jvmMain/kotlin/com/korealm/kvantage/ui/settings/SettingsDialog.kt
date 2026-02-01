@@ -1,4 +1,4 @@
-package com.korealm.kvantage.ui
+package com.korealm.kvantage.ui.settings
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
@@ -16,7 +16,9 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.korealm.kvantage.state.AppThemeState
-import com.korealm.kvantage.ui.theme.ThemeType
+import com.korealm.kvantage.ui.SwitchWithText
+import com.korealm.kvantage.ui.misc.FullCopyright
+import com.korealm.kvantage.ui.misc.ShortCopyright
 import kvantage.composeapp.generated.resources.*
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -47,20 +49,23 @@ fun SettingsScreen(
                 5.dp,
                 MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)
             ),
-            modifier = Modifier.size(width = 440.dp, height = 650.dp)
+            modifier = Modifier.size(width = 450.dp, height = 650.dp)
         ) {
             Column (
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 40.dp, bottom = 30.dp),
+                    .padding(vertical = 30.dp),
             ) {
                 Text(
                     text = stringResource(Res.string.settings),
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(start = 26.dp)
+                    style = MaterialTheme.typography.headlineLarge,
+                    textAlign = TextAlign.Center,
+                    letterSpacing = (1.5).sp,
+                    modifier = Modifier
+                        .fillMaxWidth()
                 )
 
-                Spacer(Modifier.height(30.dp))
+                HorizontalDivider(modifier = Modifier.padding(vertical = 15.dp, horizontal = 8.dp))
 
                 SwitchWithText(
                     text = Res.string.dark_mode,
@@ -119,6 +124,8 @@ fun SettingsScreen(
                             maxLines = 1,
                             shape = RoundedCornerShape(15.dp),
                             colors = TextFieldDefaults.colors(
+                                focusedContainerColor = MaterialTheme.colorScheme.background,
+                                unfocusedContainerColor = MaterialTheme.colorScheme.background,
                                 unfocusedIndicatorColor = Color.Transparent,
                                 focusedIndicatorColor = Color.Transparent,
                                 disabledIndicatorColor = Color.Transparent
@@ -141,7 +148,8 @@ fun SettingsScreen(
                     appTheme = appTheme,
                     selectedThemeIndex = selectedThemeIndex,
                     onClickThemeChange = onClickThemeChange,
-                    modifier = Modifier.padding(15.dp)
+                    modifier = Modifier
+                        .padding(all = 20.dp)
                 )
 
                 HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp, horizontal = 26.dp))
@@ -155,60 +163,5 @@ fun SettingsScreen(
                 }
             }
         }
-    }
-}
-
-@Composable
-fun ThemeSelector(
-    selectedThemeIndex: Int,
-    onClickThemeChange: (Int) -> Unit,
-    appTheme: AppThemeState,
-    modifier: Modifier = Modifier
-) {
-    val themes = listOf(
-        ThemeType.GRUVBOX,
-        ThemeType.MATERIAL,
-        ThemeType.KANAGAWA,
-        ThemeType.DRACULA
-    )
-
-    Column(modifier = modifier.fillMaxWidth()) {
-        Text(
-            text = stringResource(Res.string.themes),
-            fontSize = 20.sp,
-            color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.padding(horizontal = 24.dp)
-        )
-
-        SingleChoiceSegmentedButtonRow(
-            modifier = Modifier.padding(vertical = 10.dp).heightIn(min = 48.dp)
-        ) {
-            themes.forEachIndexed { index, label ->
-                SegmentedButton(
-                    shape = SegmentedButtonDefaults.itemShape(index, themes.size),
-                    onClick = {
-                        onClickThemeChange(index)
-                        appTheme.setTheme (themes[index])
-                    },
-                    selected = selectedThemeIndex == index,
-                    colors = SegmentedButtonDefaults.colors(
-                        activeContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f),
-                    ),
-                    modifier = Modifier
-                ) {
-                    Column (
-                        verticalArrangement = Arrangement.Center,
-                        modifier = Modifier.fillMaxWidth().height(48.dp)
-                    ) {
-                        Text(
-                            text = label.toString().lowercase().replaceFirstChar { char -> char.titlecase() },
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                    }
-                }
-            }
-        }
-
     }
 }

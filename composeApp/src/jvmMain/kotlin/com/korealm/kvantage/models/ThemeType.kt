@@ -1,4 +1,4 @@
-package com.korealm.kvantage.ui.theme
+package com.korealm.kvantage.models
 
 // List of available themes
 enum class ThemeType (val index: Int) {

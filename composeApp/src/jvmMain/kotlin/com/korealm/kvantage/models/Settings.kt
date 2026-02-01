@@ -1,4 +1,4 @@
-package com.korealm.kvantage.settings
+package com.korealm.kvantage.models
 
 import kotlinx.serialization.Serializable
 

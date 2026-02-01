@@ -2,7 +2,7 @@ package com.korealm.kvantage.state
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.*
-import com.korealm.kvantage.ui.theme.ThemeType
+import com.korealm.kvantage.models.ThemeType
 
 class AppThemeState(initialDarkTheme: Boolean) {
     var currentTheme by mutableStateOf(ThemeType.GRUVBOX)

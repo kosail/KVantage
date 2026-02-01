@@ -1,7 +1,6 @@
-package com.korealm.kvantage.settings
+package com.korealm.kvantage.utils
 
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
+import com.korealm.kvantage.models.Settings
 import kotlinx.serialization.json.Json
 import java.io.File
 
@@ -10,7 +9,8 @@ object SettingsManager {
         prettyPrint = true
         encodeDefaults = true
     }
-    private val settingsFile: File = File(System.getProperty("user.home"), ".config/Kvantage/settings.json")
+
+    private val settingsFile: File = File(System.getProperty("user.home"), ".config/Kvantage/models.json")
 
     fun loadSettings(): Settings {
         return if (settingsFile.exists()) {
@@ -19,12 +19,12 @@ object SettingsManager {
                 json.decodeFromString<Settings>(text)
 
             } catch (e: Exception) {
-                println("[SettingsManager]: Failed to load settings from disk. Exception info: ${e.message}")
-                Settings() // Fallback to default settings to start the app
+                println("[SettingsManager]: Failed to load models from disk. Exception info: ${e.message}")
+                Settings() // Fallback to default models to start the app
             }
         } else {
-            println("[SettingsManager]: No settings file found on disk. Loading defaults.")
-            Settings() // If the file doesn't exist, then load the default settings
+            println("[SettingsManager]: No models file found on disk. Loading defaults.")
+            Settings() // If the file doesn't exist, then load the default models
         }
     }
 
@@ -35,7 +35,7 @@ object SettingsManager {
 
             println("[SettingsManager]: Settings saved to disk!")
         } catch (e: Exception) {
-            println("[SettingsManager]: Failed to save settings to disk. Exception info: ${e.message}")
+            println("[SettingsManager]: Failed to save models to disk. Exception info: ${e.message}")
         }
     }
 }

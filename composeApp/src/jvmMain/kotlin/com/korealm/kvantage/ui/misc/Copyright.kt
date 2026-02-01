@@ -1,4 +1,4 @@
-package com.korealm.kvantage.ui
+package com.korealm.kvantage.ui.misc
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -40,7 +40,7 @@ fun FullCopyright(
             text = stringResource(Res.string.with_love),
             fontSize = 14.sp,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
             modifier = Modifier
         )
 
@@ -48,7 +48,7 @@ fun FullCopyright(
             text = stringResource(Res.string.signature),
             fontSize = 14.sp,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
             modifier = Modifier
         )
     }

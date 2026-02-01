@@ -3,10 +3,11 @@ package com.korealm.kvantage.ui.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import com.korealm.kvantage.models.ThemeType
 
 @Composable
 fun AppTheme(
-    themeType: ThemeType = ThemeType.GRUVBOX,
+    themeType: ThemeType = ThemeType.DRACULA,
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
