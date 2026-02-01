@@ -5,8 +5,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.BatteryFull
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,6 +19,7 @@ import com.korealm.kvantage.state.AppThemeState
 import com.korealm.kvantage.ui.theme.ThemeType
 import kvantage.composeapp.generated.resources.*
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 fun SettingsScreen(
@@ -111,7 +110,7 @@ fun SettingsScreen(
                             placeholder = { batteryName },
                             leadingIcon = {
                                 Icon(
-                                    imageVector = Icons.Rounded.BatteryFull,
+                                    imageVector = vectorResource(Res.drawable.battery_full),
                                     contentDescription = null,
                                     modifier = Modifier.size(20.dp)
                                 )

@@ -5,31 +5,30 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
-    kotlin("plugin.serialization") version "1.9.10"
+    alias(libs.plugins.kotlinxSerialization)
 }
 
 kotlin {
-    jvm("desktop")
-    
+    jvm()
+
     sourceSets {
-        val desktopMain by getting
-        
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.materialIconsExtended)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.material3)
+            implementation(libs.compose.ui)
+            implementation(libs.compose.components.resources)
+            implementation(libs.compose.uiToolingPreview)
+            implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+            implementation(libs.kotlinx.json.serializer)
+//            implementation(libs.proshape)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
-        desktopMain.dependencies {
+        jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
         }
@@ -43,7 +42,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Deb)
             packageName = "com.korealm.kvantage"
-            packageVersion = "2.0.0"
+            packageVersion = "2.1.0"
         }
 
     }

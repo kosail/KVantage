@@ -11,8 +11,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -33,16 +31,14 @@ import kotlinx.coroutines.withContext
 import kvantage.composeapp.generated.resources.*
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.resources.vectorResource
 
 @Composable
-@Preview
 fun App(kvand: KvandClient) {
     val savedSettings = remember { mutableStateOf(SettingsManager.loadSettings()) }
 
     val themeState = rememberAppThemeState( savedSettings.value.isDarkMode )
     val batteryLifeState = rememberBatteryLifeState( savedSettings.value.batteryName )
-    val iconTheme = Icons.Rounded
 
     var isSettingsOpen by remember { mutableStateOf(false) }
 
@@ -99,7 +95,7 @@ fun App(kvand: KvandClient) {
                             .align(Alignment.TopEnd)
                     ) {
                         Icon(
-                            imageVector = iconTheme.Settings,
+                            imageVector = vectorResource(Res.drawable.settings),
                             contentDescription = stringResource(Res.string.settings_button_content_description),
                             tint = MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier.size(35.dp)
@@ -113,11 +109,10 @@ fun App(kvand: KvandClient) {
                     )
                 }
 
-                PowerProfilerSection(iconTheme, kvand, Modifier)
+                PowerProfilerSection(kvand, Modifier)
                 HorizontalDivider(modifier = Modifier.padding(top = 16.dp, bottom = 5.dp))
 
                 BatteryThreshold(
-                    iconTheme = iconTheme,
                     kvand = kvand,
                     isRapidChargeToggleConservation = isRapidChargeToggleConservation,
                     onChangeRapidChargeToggleConservation = { newValue -> isRapidChargeToggleConservation = newValue },
@@ -190,7 +185,6 @@ fun App(kvand: KvandClient) {
 
 @Composable
 fun PowerProfilerSection(
-    iconTheme: Icons.Rounded,
     kvand: KvandClient,
     modifier: Modifier = Modifier
 ) {
@@ -252,9 +246,9 @@ fun PowerProfilerSection(
                         ) {
                             Icon(
                                 imageVector = when (index) {
-                                    0 -> iconTheme.Bolt
-                                    1 -> iconTheme.Air
-                                    else -> iconTheme.EnergySavingsLeaf
+                                    0 -> vectorResource(Res.drawable.bolt)
+                                    1 -> vectorResource(Res.drawable.air)
+                                    else -> vectorResource(Res.drawable.leaf)
                                 },
                                 tint = MaterialTheme.colorScheme.onSurface,
                                 contentDescription = null,
@@ -298,7 +292,6 @@ fun PowerProfilerSection(
 
 @Composable
 fun BatteryThreshold(
-    iconTheme: Icons.Rounded,
     kvand: KvandClient,
     isRapidChargeToggleConservation: Boolean,
     onChangeRapidChargeToggleConservation: (Boolean) -> Unit,
@@ -376,7 +369,7 @@ fun BatteryThreshold(
             placeholder = { percentage.toString() },
             trailingIcon = {
                 Icon(
-                    imageVector = iconTheme.Percent,
+                    imageVector = vectorResource(Res.drawable.percentage),
                     contentDescription = stringResource(Res.string.percent_icon),
                     modifier = Modifier.size(24.dp)
                 )
