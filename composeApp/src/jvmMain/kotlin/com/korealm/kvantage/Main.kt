@@ -11,6 +11,8 @@ import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import com.korealm.kvantage.state.KvandClient
 import com.korealm.kvantage.ui.App
+import com.korealm.kvantage.ui.misc.InstallerDialog
+import com.korealm.kvantage.utils.AppInstaller
 import kvantage.composeapp.generated.resources.Res
 import kvantage.composeapp.generated.resources.favicon
 import org.jetbrains.compose.resources.painterResource
@@ -32,7 +34,7 @@ fun main() = application {
             resizable = false,
             state = WindowState( size = DpSize(530.dp, 360.dp) )
         ) {
-            InstallDialog(
+            InstallerDialog(
                 onDismissRequest = { isInstallDialogOpen = false },
             )
         }

@@ -47,15 +47,7 @@ I will look into this later.
 ##  🪻 Screenshots
 
 ### Whispering Sea Theme
-![Animated Background ON with Gruvbox theme](repo_images/gruvbox_theme_1.png)
-<details>
-  <summary>More images over here:</summary>
-
-### Whispering Sea Theme (Animated theme disabled)
-![Animated Background OFF with Gruvbox theme, and settings](repo_images/gruvbox_theme_2_and_settings.png)
-
-
-</details>
+![Animated Background ON with Whispering Sea theme](repo_images/screenshot1.png)
 
 ---
 ##  🪷 Backend
