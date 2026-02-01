@@ -1,21 +1,21 @@
 # 🌸 KVantage
-### Minimal control center for Lenovo laptops on Linux, inspired by GTK and macOS aesthetics.
+### Minimal control center for Lenovo laptops on Linux, inspired by Material UI aesthetics.
 
 ![KVantage logo](repo_images/main_logo.png)
 
-**KVantage** is a sleek and minimal desktop app designed to provide users of **Lenovo laptops** running Linux with easy access to essential device settings. Inspired by the clean aesthetics of **GNOME (GTK)** and **macOS**, KVantage is built with **Kotlin + Compose Multiplatform for Desktop**, and aims to offer just the core features users care about. No bloat.
+**KVantage** is a sleek and minimal desktop app designed to provide users of **Lenovo laptops** running Linux with easy access to essential device settings. Inspired by the clean aesthetics of **Material UI**, KVantage is built with **Kotlin + Compose Multiplatform for Desktop**, and aims to offer just the core features we care about. No bloat.
 
 ---
 
 ## 🌻 Current Status
 The app is fully functional. The only thing that is not yet implemented is the option to set a customized battery threshold. By now, it is hardcoded to the default value (which is 80%).
 
-**The GUI allows toggling performance profiles, battery thresholds, and rapid charge settings.** It also shows the remaining battery life. **Designed to be intuitive, light, and visually appealing**. It has four available themes to choose from on settings, and supports up to eight languages. It should change language based on your System's locale.
+**The GUI allows toggling performance profiles, battery thresholds, and rapid charge settings.** It also shows the remaining battery life. **Designed to be intuitive, light, and visually appealing**. It has four available themes to choose from on settings and supports up to eight languages. It should change language based on your System's locale.
   <br><br>
 
 ### **Known Limitations:**
   1. **System compatibility is limited to Lenovo laptops** that expose the ACPI interface using the acpi_call kernel module (`/proc/acpi/call`).
-  2. The app needs root access to perform the ACPI read and writes at `/proc/acpi/call`. This is a limitation that cannot be bypassed, but it was minimized by asking for the password once for the entire execution of the program, and isolating that mentioned root access to just the backend server.
+  2. The app needs root access to perform the ACPI read and writes at `/proc/acpi/call`. This is a limitation that cannot be bypassed, but it was minimized by asking for the password once for the entire execution of the program and isolating that mentioned root access to just the backend server.
 
 [//]: # (### **Known bugs:**)
 [//]: # (* **No bugs found so far.**)
@@ -32,15 +32,15 @@ The app is fully functional. The only thing that is not yet implemented is the o
 ✅ **Show remaining battery life (with option to hide it from settings)**  
 ✅ **Multiple dark and light themes**   
 ✅ **Multiple languages available (English, Spanish and Japanese were made by me, while German, French, Portuguese, Korean and Chinese are IA translated)**  
-❌ **Custom threshold for battery conservation**  
-⚠️ **Native image packaging** (Though, I was not able to build a DEB/RPM/AppImage, I implemented a embedded installer that will copy the app into your local user bin folder and it works fantastic.)
+⚠️ **Custom threshold for battery conservation**  
+✅ **Native image packaging** (Though, I was not able to build a DEB/RPM/AppImage, I implemented a embedded installer that will copy the app into your local user bin folder and it works fantastic.)
 
 ### Deprecated functionalities (and why):
-❌ **Tray icon support**: Sadly, KMP built-in tray support is poor on linux. I tried with KDE, Cinnamon and Hyprland, but neither of them was recognized by the isTraySupported function, and it just refused to launch.
+❌ **Tray icon support**: Sadly, KMP built-in tray support is poor on linux. I tried with KDE, Cinnamon, and Hyprland, but neither of them was recognized by the isTraySupported function, and it just refused to launch.
 
-I tried alternatives like [ComposeNativeTray](https://github.com/kdroidFilter/ComposeNativeTray), but for some reason, the main action kills the app instead of toggling its visibility. I first thought it was a bug of my code, but after several hours of trial and error and having long discussions with AI, I couldn't figure out what's wrong. I desisted to use it.
+I tried alternatives like [ComposeNativeTray](https://github.com/kdroidFilter/ComposeNativeTray), but for some reason, the main action kills the app instead of toggling its visibility. I first thought it was a bug of my code, but after several hours of trial and error and having long discussions with AI, I couldn't figure out what's wrong. I desisted in using it.
 
-Swing's system tray may work, but it looks horrid and I think it might cause more damage than adding value. Still, I will look into that later.
+I will look into this later.
 
 
 ---
@@ -69,10 +69,10 @@ All themes have their animated and plain color background. However, I will only 
 
 ---
 ##  🪷 Backend
-At first, I thought of using the wonderful project [batmanager, by LevitatingBusinessMan](https://github.com/LevitatingBusinessMan/batmanager) which is exactly what this program aims for, but in CLI format. However, I know no Rust. I couldn't make it work on NixOS (dynamic linking executable issues), and it is my main Linux distro.<br><br>
-At the end, due some limitations of the JVM and Kotlin Native, I decided to reimplement batmanager in Golang. More about this in the [backend section below](#backend).
+At first, I thought of using the wonderful project [batmanager, by LevitatingBusinessMan](https://github.com/LevitatingBusinessMan/batmanager) which is exactly what this program aims for, but in CLI format. However, I know no Rust. I couldn't make it work on NixOS (dynamic linking executable issues), and by the moment I created this project, is my main Linux distro.<br><br>
+At the end, due to some limitations of the JVM and Kotlin Native, I decided to reimplement batmanager in Golang. More about this in the [backend section below](#backend).
 
-To keep things clean, I will maintain only the GUI app here, and kvand (the backend daemon) in another repository. In this repo you'll only find the native kvand executable. To see kvand source code, comments and notes about it, please check the [daemon's repository here at my GitHub profile](https://github.com/kosail/Kvand).
+To keep things clean, I will maintain only the GUI app here, and kvand (the backend daemon) in another repository. In this repo you'll only find the native kvand executable. To see kvand source code, comments, and notes about it, please check the [daemon's repository here at my GitHub profile](https://github.com/kosail/Kvand).
 
 
 ---
@@ -91,7 +91,7 @@ I know, I played with fire. Sorry mom, I will not do that again. I will test my 
 ---
 
 ## 📜 Disclaimer & License
-This app targets specifically Lenovo laptops. Please do NOT run it if your laptop is not Lenovo. The backend assumes it is run on a Lenovo laptop with a known/defined ACPI table to access the battery, performance and rapid charge.
+This app specifically targets Lenovo laptops. Please do NOT run it if your laptop is not Lenovo. The backend assumes it is run on a Lenovo laptop with a known/defined ACPI table to access the battery, performance, and rapid charge.
 This software needs root privileges to run, and thus, expect undefined behavior if you run Lenovo specific ACPI commands in a non-targeted ACPI table. Use it as your own risk.
 
 ![GPLv3 License logo. Copyright © 2012 Christian Cadena](repo_images/license-logos-by-christian-candena-GNU_GPLv3_License.png)
