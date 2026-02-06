@@ -69,59 +69,59 @@ fun BatteryThreshold(
         )
     }
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier.fillMaxWidth().padding(top = 3.dp, start = 20.dp, end = 20.dp)
-    ) {
-        Text(
-            text = stringResource(Res.string.enable),
-            fontSize = 20.sp,
-            modifier = Modifier.padding(start = 16.dp),
-            color = if (isChecked) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-        )
-
-        TextField(
-            value = percentage.toString(),
-            onValueChange = {
-                val value = it.toIntOrNull() ?: 0
-                percentage = if (value > 100) {
-                    100
-                } else if (value < 0) {
-                    0
-                } else {
-                    it.toIntOrNull() ?: 0
-                }
-            },
-//            enabled = checked,
-            enabled = false,
-            placeholder = { percentage.toString() },
-            trailingIcon = {
-                Icon(
-                    imageVector = vectorResource(Res.drawable.percentage),
-                    contentDescription = stringResource(Res.string.percent_icon),
-                    modifier = Modifier.size(24.dp)
-                )
-            },
-            singleLine = true,
-            maxLines = 1,
-            shape = RoundedCornerShape(15.dp),
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.background,
-                unfocusedContainerColor = MaterialTheme.colorScheme.background,
-                unfocusedIndicatorColor = Color.Transparent,
-                focusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
-            ),
-            modifier = Modifier
-                .width(100.dp)
-                .border(
-                    width = 1.dp,
-                    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f),
-                    shape = RoundedCornerShape(15.dp)
-                )
-        )
-    }
+//    Row(
+//        verticalAlignment = Alignment.CenterVertically,
+//        horizontalArrangement = Arrangement.SpaceBetween,
+//        modifier = modifier.fillMaxWidth().padding(top = 3.dp, start = 20.dp, end = 20.dp)
+//    ) {
+//        Text(
+//            text = stringResource(Res.string.enable),
+//            fontSize = 20.sp,
+//            modifier = Modifier.padding(start = 16.dp),
+//            color = if (isChecked) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+//        )
+//
+//        TextField(
+//            value = percentage.toString(),
+//            onValueChange = {
+//                val value = it.toIntOrNull() ?: 0
+//                percentage = if (value > 100) {
+//                    100
+//                } else if (value < 0) {
+//                    0
+//                } else {
+//                    it.toIntOrNull() ?: 0
+//                }
+//            },
+////            enabled = checked,
+//            enabled = false,
+//            placeholder = { percentage.toString() },
+//            trailingIcon = {
+//                Icon(
+//                    imageVector = vectorResource(Res.drawable.percentage),
+//                    contentDescription = stringResource(Res.string.percent_icon),
+//                    modifier = Modifier.size(24.dp)
+//                )
+//            },
+//            singleLine = true,
+//            maxLines = 1,
+//            shape = RoundedCornerShape(15.dp),
+//            colors = TextFieldDefaults.colors(
+//                focusedContainerColor = MaterialTheme.colorScheme.background,
+//                unfocusedContainerColor = MaterialTheme.colorScheme.background,
+//                unfocusedIndicatorColor = Color.Transparent,
+//                focusedIndicatorColor = Color.Transparent,
+//                disabledIndicatorColor = Color.Transparent
+//            ),
+//            modifier = Modifier
+//                .width(100.dp)
+//                .border(
+//                    width = 1.dp,
+//                    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f),
+//                    shape = RoundedCornerShape(15.dp)
+//                )
+//        )
+//    }
 
     AnimatedVisibility(isChecked) {
         Spacer(modifier = Modifier.height(13.dp))

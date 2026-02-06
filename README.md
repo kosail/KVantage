@@ -24,7 +24,7 @@ The app is fully functional. The only thing that is not yet implemented is the o
 
 ## 🌹 Features
 
-> **Note:** ⚠️  Means partially implemented.
+[//]: # (> **Note:** ⚠️  Means partially implemented.)
 
 ✅ **Toggle Performance Profiles** (Power saving, Extreme Performance, Intelligent Cooling)  
 ✅ **Battery Charge Threshold Management**  (AKA limit battery charge at 80% to improve battery lifespan)  
@@ -32,15 +32,14 @@ The app is fully functional. The only thing that is not yet implemented is the o
 ✅ **Show remaining battery life (with option to hide it from settings)**  
 ✅ **Multiple dark and light themes**   
 ✅ **Multiple languages available (English, Spanish and Japanese were made by me, while German, French, Portuguese, Korean and Chinese are IA translated)**  
-⚠️ **Custom threshold for battery conservation**  
-✅ **Native image packaging** (Though, I was not able to build a DEB/RPM/AppImage, I implemented a embedded installer that will copy the app into your local user bin folder and it works fantastic.)
+❌ **Custom threshold for battery conservation**: My laptop is a cheap one, and it has no option to set a custom threshold. I may implement this in the future if people ask for it, tho I could not guarantee it works as I would not be able to test it.  
+✅ **Native image packaging** (Though I was not able to build a DEB/RPM/AppImage, I implemented a embedded installer that will copy the app into your local user bin folder, and it works fantastically.)
 
-### Deprecated functionalities (and why):
-❌ **Tray icon support**: Sadly, KMP built-in tray support is poor on linux. I tried with KDE, Cinnamon, and Hyprland, but neither of them was recognized by the isTraySupported function, and it just refused to launch.
+### Planned functionalities:
+❌ **Tray icon support**: Compose Multiplatform has evolved a lot in the last year, so this might now be possible! I will look into this later.
+~~Sadly, KMP built-in tray support is poor on linux. I tried with KDE, Cinnamon, and Hyprland, but neither of them was recognized by the isTraySupported function, and it just refused to launch.~~
 
-I tried alternatives like [ComposeNativeTray](https://github.com/kdroidFilter/ComposeNativeTray), but for some reason, the main action kills the app instead of toggling its visibility. I first thought it was a bug of my code, but after several hours of trial and error and having long discussions with AI, I couldn't figure out what's wrong. I desisted in using it.
-
-I will look into this later.
+~~I tried alternatives like [ComposeNativeTray](https://github.com/kdroidFilter/ComposeNativeTray), but for some reason, the main action kills the app instead of toggling its visibility. I first thought it was a bug of my code, but after several hours of trial and error and having long discussions with AI, I couldn't figure out what's wrong. I desisted in using it.~~
 
 
 ---
