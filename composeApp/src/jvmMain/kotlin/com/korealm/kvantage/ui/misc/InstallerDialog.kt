@@ -17,18 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.korealm.kvantage.ui.theme.whisperSeaDarkError
-import com.korealm.kvantage.ui.theme.whisperSeaDarkPrimaryContainer
-import com.korealm.kvantage.ui.theme.whisperSeaDarkSecondaryContainer
-import com.korealm.kvantage.ui.theme.whisperSeaDarkTertiaryContainer
-import com.korealm.kvantage.ui.theme.whisperSeaDarkText
-import com.korealm.kvantage.ui.theme.whisperSeaLightPrimary
-import com.korealm.kvantage.ui.theme.whisperSeaLightPrimaryContainer
-import com.korealm.kvantage.ui.theme.whisperSeaLightSecondary
-import com.korealm.kvantage.ui.theme.whisperSeaLightSecondaryContainer
-import com.korealm.kvantage.ui.theme.whisperSeaLightTertiary
-import com.korealm.kvantage.ui.theme.whisperSeaLightTertiaryContainer
-import com.korealm.kvantage.ui.theme.whisperSeaLightText
+import com.korealm.kvantage.ui.theme.*
 import com.korealm.kvantage.utils.AppInstaller
 import com.korealm.kvantage.utils.AppInstaller.writeFlag
 import com.korealm.kvantage.utils.targetPath
@@ -95,7 +84,11 @@ fun InstallerDialog(
                                 ),
                                 border = BorderStroke(1.dp, whisperSeaLightPrimary),
                                 modifier = Modifier
-                            ) { Text(text = stringResource(Res.string.okay)) }
+                            ) {
+                                Text(
+                                    text = stringResource(Res.string.okay)
+                                )
+                            }
 
                             Button(
                                 onClick = { onDismissRequest() },
@@ -106,7 +99,11 @@ fun InstallerDialog(
                                 ),
                                 border = BorderStroke(1.dp, whisperSeaLightSecondary),
                                 modifier = Modifier
-                            ) { Text(text = stringResource(Res.string.no)) }
+                            ) {
+                                Text(
+                                    text = stringResource(Res.string.no)
+                                )
+                            }
 
                             Button(
                                 onClick = {
@@ -121,7 +118,11 @@ fun InstallerDialog(
                                 ),
                                 border = BorderStroke(1.dp, whisperSeaLightTertiary),
                                 modifier = Modifier
-                            ) { Text(text = stringResource(Res.string.dont_ask)) }
+                            ) {
+                                Text(
+                                    text = stringResource(Res.string.dont_ask),
+                                )
+                            }
                         }
                     }
 
@@ -145,7 +146,11 @@ fun InstallerDialog(
                             ),
                             border = BorderStroke(1.dp, whisperSeaLightPrimary),
                             modifier = Modifier
-                        ) { Text(text = stringResource(Res.string.okay)) }
+                        ) {
+                            Text(
+                                text = stringResource(Res.string.okay)
+                            )
+                        }
                     }
                 }
             }
