@@ -62,8 +62,8 @@ fun isRunningAsRoot(): Boolean {
 fun forbidStartAsRoot(exitApp: () -> Unit) {
     javax.swing.JOptionPane.showMessageDialog(
         null,
-        "Failed to initialize the backend service.\nRoot permissions are required to run this application.",
-        "Critical Error",
+        "This app needs root access to work, but it manages it to escalate it internally and securely, just for a small portion of it (the backend).\nThe app GUI (the graphical interface) should NEVER be started as root for obvious security reasons.",
+        "Critical Error: App must never be started as root",
         javax.swing.JOptionPane.ERROR_MESSAGE
     )
 

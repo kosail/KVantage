@@ -23,10 +23,9 @@ object AppInstaller {
         // Create if not exists
         Files.createDirectories(localBin)
 
-        // Copy JAR to .local/bin/kvantage.jar
+        AppLogger.debug("Installer", "Copying JAR to $targetPath")
         Files.copy(currentPath, targetPath, StandardCopyOption.REPLACE_EXISTING)
 
-        // Install .desktop file
         val desktopFileContent = """
             [Desktop Entry]
                 Version=1.0
@@ -39,6 +38,7 @@ object AppInstaller {
                 Categories=Utility;
         """.trimIndent()
 
+        AppLogger.debug("Installer", "Creating .desktop file at $applicationDir")
         Files.createDirectories(applicationDir)
         Files.write(applicationDir.resolve("kvantage.desktop"), desktopFileContent.toByteArray())
 
@@ -50,7 +50,10 @@ object AppInstaller {
         embeddedIcon.use { input -> input.copyTo(iconTarget.outputStream()) }
 
         // Flag is needed in case of using the app as a portable executable
+        AppLogger.debug("Installer", "Writing the flag file , so Kvantage will stop asking for installation at every start up")
         writeFlag()
+
+        AppLogger.info("Installer", "Installation successful!")
     }
 
     fun writeFlag() { // This is needed, as it will stop Kvantage from asking for installation at every start up
@@ -60,7 +63,10 @@ object AppInstaller {
 
     fun reRunApp(path: String): Nothing {
         // Re-execute this program but from the new file located at ~/.local/bin
+        AppLogger.info("Installer", "Relaunching the app with high privileges...")
         Runtime.getRuntime().exec(arrayOf("java", "-jar", path))
+
+        AppLogger.info("Installer", "Killing previous instance")
         exitProcess(0)
     }
 }

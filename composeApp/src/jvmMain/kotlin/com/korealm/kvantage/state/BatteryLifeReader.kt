@@ -1,10 +1,11 @@
 package com.korealm.kvantage.state
 
 import androidx.compose.runtime.*
+import com.korealm.kvantage.utils.AppLogger
 import java.io.File
 
 class BatteryLifeReader(initialBatteryName: String) {
-    private val BATTERY_PATH = "/sys/class/power_supply/"
+    private val BATTERYPATH = "/sys/class/power_supply/"
 
     var batteryName by mutableStateOf(initialBatteryName)
         private set
@@ -14,6 +15,7 @@ class BatteryLifeReader(initialBatteryName: String) {
 
     fun updateBatteryName(newName: String) {
         batteryName = newName
+        AppLogger.debug("BatteryLifeReader", "Battery name changed to $newName")
         refreshBatteryLife()
     }
 
@@ -22,7 +24,7 @@ class BatteryLifeReader(initialBatteryName: String) {
     }
 
     private fun calculateRemainingLife(): Float {
-        val fullPath = BATTERY_PATH + batteryName
+        val fullPath = BATTERYPATH + batteryName
         val energyFullDesignFile = File("$fullPath/energy_full_design")
         val energyFullFile = File("$fullPath/energy_full")
 
@@ -34,7 +36,7 @@ class BatteryLifeReader(initialBatteryName: String) {
 
             if (energyFullDesign == 0L) 0f else ((energyFull * 100f) / energyFullDesign)
         } catch (e: Exception) {
-            println("Battery info error for $batteryName: ${e.message}")
+            AppLogger.error("BatteryLifeReader", "Error calculating battery life: ${e.message}")
             0f
         }
     }

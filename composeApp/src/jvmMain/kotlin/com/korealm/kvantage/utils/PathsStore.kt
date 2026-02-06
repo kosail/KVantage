@@ -13,4 +13,5 @@ val iconTarget: Path = iconDir.resolve("kvantage.png")
 val currentPath: Path = Paths.get(AppInstaller::class.java.protectionDomain.codeSource.location.toURI())
 val targetPath: Path = localBin.resolve("kvantage")
 
-val localKvantageConfig: Path = Paths.get(home, ".config", "Kvantage")
+val localKvantageConfig: Path = Paths.get(home, ".config", "kvantage")
+val logsDir: Path = Paths.get(localKvantageConfig.toString(), "logs")

@@ -27,7 +27,7 @@ fun BatteryThreshold(
     modifier: Modifier = Modifier
 ) {
     var isChecked by remember { mutableStateOf(false) }
-    var percentage by remember { mutableIntStateOf(80) }
+//    var percentage by remember { mutableIntStateOf(80) }
 
     var isInitialized by remember { mutableStateOf(false) }
     var pendingUpdate by remember { mutableStateOf<Boolean?>(null) }
@@ -69,6 +69,8 @@ fun BatteryThreshold(
         )
     }
 
+
+    // Commented out as I currently have no time to do an implementation of this :(
 //    Row(
 //        verticalAlignment = Alignment.CenterVertically,
 //        horizontalArrangement = Arrangement.SpaceBetween,

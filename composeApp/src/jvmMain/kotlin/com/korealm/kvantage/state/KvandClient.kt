@@ -1,13 +1,7 @@
 package com.korealm.kvantage.state
 
-import androidx.compose.ui.window.ApplicationScope
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
+import com.korealm.kvantage.utils.AppLogger
+import java.io.*
 import kotlin.system.exitProcess
 
 class KvandClient private constructor(
@@ -43,7 +37,7 @@ class KvandClient private constructor(
                 val writer = BufferedWriter(OutputStreamWriter(process.outputStream))
                 val reader = BufferedReader(InputStreamReader(process.inputStream))
 
-                // IMPORTANT: This will block the app until the Handshake between the backend, and the frontend
+                // IMPORTANT: This will block the app until the handshake between the backend and the frontend
                 // is completed. The GUI will wait for "READY" from the backend.
                 while (true) {
                     val line = reader.readLine() ?: handleBackendDeath()
@@ -67,7 +61,7 @@ class KvandClient private constructor(
                 javax.swing.JOptionPane.ERROR_MESSAGE
             )
 
-            System.err.println("ERROR: Backend service failed to start (likely root permission issue).")
+            AppLogger.error("KvandClient", "Backend service failed to start. (likely root permission issue)")
             exitProcess(1)
         }
     }
@@ -79,8 +73,8 @@ class KvandClient private constructor(
         writer.flush()
 
         val response = reader.readLine()
-        println("[GUI -> kbatd] $command")
-        println("[GUI <- kbatd] $response")
+        AppLogger.debug("KvandClient", "Sent command: $command")
+        AppLogger.debug("KvandClient", "Received response: $response")
 
         return response ?: "ERROR"
     }

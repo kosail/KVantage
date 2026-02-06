@@ -33,65 +33,69 @@ fun BatteryLife(
             modifier = Modifier
         )
 
-        if (remainingLife == -1F) {
-            Spacer(modifier = Modifier.height(13.dp))
-
-            Text(
-                text = stringResource(Res.string.battery_interface_not_found),
-                fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 5.dp).width(450.dp)
-            )
-        } else if (remainingLife == 0F) {
-            Spacer(modifier = Modifier.height(13.dp))
-
-            Text(
-                text = stringResource(Res.string.battery_parsing_failed),
-                fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 5.dp).width(450.dp)
-            )
-        } else {
-            Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxSize().padding(top = 20.dp)
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = "0%",
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
-                        modifier = Modifier
-                    )
-
-                    LinearProgressIndicator(
-                        progress = remainingLife / 100F,
-                        color = MaterialTheme.colorScheme.tertiary,
-                        backgroundColor = MaterialTheme.colorScheme.tertiaryContainer,
-                        modifier = Modifier
-                            .size(300.dp, 15.dp)
-                            .clip(RoundedCornerShape(20))
-                    )
-
-                    Text(
-                        text = "100%",
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
-                        modifier = Modifier
-                    )
-                }
+        when (remainingLife) {
+            -1F -> {
+                Spacer(modifier = Modifier.height(13.dp))
 
                 Text(
-                    text = "%.1f%%".format(remainingLife),
+                    text = stringResource(Res.string.battery_interface_not_found),
+                    fontSize = 14.sp,
                     color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 22.sp,
-                    letterSpacing = 1.sp,
-                    modifier = Modifier.padding(top = 10.dp)
+                    modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 5.dp).width(450.dp)
                 )
+            }
+            0F -> {
+                Spacer(modifier = Modifier.height(13.dp))
 
+                Text(
+                    text = stringResource(Res.string.battery_parsing_failed),
+                    fontSize = 14.sp,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 5.dp).width(450.dp)
+                )
+            }
+            else -> {
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxSize().padding(top = 20.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = "0%",
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
+                            modifier = Modifier
+                        )
+
+                        LinearProgressIndicator(
+                            progress = remainingLife / 100F,
+                            color = MaterialTheme.colorScheme.tertiary,
+                            backgroundColor = MaterialTheme.colorScheme.tertiaryContainer,
+                            modifier = Modifier
+                                .size(300.dp, 15.dp)
+                                .clip(RoundedCornerShape(20))
+                        )
+
+                        Text(
+                            text = "100%",
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
+                            modifier = Modifier
+                        )
+                    }
+
+                    Text(
+                        text = "%.1f%%".format(remainingLife),
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontSize = 22.sp,
+                        letterSpacing = 1.sp,
+                        modifier = Modifier.padding(top = 10.dp)
+                    )
+
+                }
             }
         }
 

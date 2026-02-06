@@ -19,11 +19,11 @@ object SettingsManager {
                 json.decodeFromString<Settings>(text)
 
             } catch (e: Exception) {
-                println("[SettingsManager]: Failed to load models from disk. Exception info: ${e.message}")
+                AppLogger.error("SettingsManager", "Failed to load settings from disk. Exception info: ${e.message}")
                 Settings() // Fallback to default models to start the app
             }
         } else {
-            println("[SettingsManager]: No models file found on disk. Loading defaults.")
+            AppLogger.debug("SettingsManager", "No models file found on disk. Loading defaults.")
             Settings() // If the file doesn't exist, then load the default models
         }
     }
@@ -33,9 +33,9 @@ object SettingsManager {
             settingsFile.parentFile.mkdirs()
             settingsFile.writeText(json.encodeToString(settings))
 
-            println("[SettingsManager]: Settings saved to disk!")
+            AppLogger.debug("SettingsManager", "Settings saved to disk!")
         } catch (e: Exception) {
-            println("[SettingsManager]: Failed to save models to disk. Exception info: ${e.message}")
+            AppLogger.error("SettingsManager", "Failed to save settings to disk. Exception info: ${e.message}")
         }
     }
 }
