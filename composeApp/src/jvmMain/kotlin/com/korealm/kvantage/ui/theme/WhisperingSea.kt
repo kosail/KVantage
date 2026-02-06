@@ -4,23 +4,23 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
-// --- Whispering Sea Light Theme (macOS + GNOME inspired) ---
-val whisperSeaLightPrimary = Color(0xFFBFC9D0)           // Soft Blue-Gray (main brand color)
-val whisperSeaLightPrimaryContainer = Color(0xFFE6EBEE)  // Light Mist Blue
+// --- Whispering Sea Light Theme
+val whisperSeaLightPrimary = Color(0xFF84a1b5)
+val whisperSeaLightPrimaryContainer = Color(0xFFc5ced4)
 
-val whisperSeaLightSecondary = Color(0xFFB6ADA5)         // Warm Stone Beige
-val whisperSeaLightSecondaryContainer = Color(0xFFECE8E5) // Soft Sand
+val whisperSeaLightSecondary = Color(0xFFad8d71)
+val whisperSeaLightSecondaryContainer = Color(0xFFd1c0b4)
 
-val whisperSeaLightTertiary = Color(0xFFA7A7C5)          // Subtle Lavender Gray
-val whisperSeaLightTertiaryContainer = Color(0xFFE9E9F2) // Clouded Lilac
+val whisperSeaLightTertiary = Color(0xFF8686bd)
+val whisperSeaLightTertiaryContainer = Color(0xFFb1b1c9)
 
-val whisperSeaLightBackground = Color(0xFFFAFAFA)        // macOS-style Off White
-val whisperSeaLightSurface = Color(0xFFF3F3F4)           // Very Light Gray
-val whisperSeaLightSurfaceVariant = Color(0xFFE0E0E2)    // Neutral Divider Gray
+val whisperSeaLightBackground = Color(0xFFFAFAFA)
+val whisperSeaLightSurface = Color(0xFFF3F3F4)
+val whisperSeaLightSurfaceVariant = Color(0xFFE0E0E2)
 
-val whisperSeaLightText = Color(0xFF2C2C2E)              // Deep Charcoal
-val whisperSeaLightError = Color(0xFFD27A7A)             // Soft Red Clay
-val whisperSeaLightErrorContainer = Color(0xFFF9EAEA)    // Blush Pink
+val whisperSeaLightText = Color(0xFF2C2C2E)
+val whisperSeaLightError = Color(0xFFD27A7A)
+val whisperSeaLightErrorContainer = Color(0xFFF9EAEA)
 
 fun whisperingSeaLightColors() = lightColorScheme(
     primary = whisperSeaLightPrimary,
@@ -44,7 +44,7 @@ fun whisperingSeaLightColors() = lightColorScheme(
     surface = whisperSeaLightSurface,
     onSurface = whisperSeaLightText,
     surfaceVariant = whisperSeaLightSurfaceVariant,
-    onSurfaceVariant = Color(0xFF5F5F60), // Neutral outline
+    onSurfaceVariant = Color(0xFF5F5F60),
 
     error = whisperSeaLightError,
     onError = whisperSeaLightText,
@@ -54,22 +54,22 @@ fun whisperingSeaLightColors() = lightColorScheme(
 
 
 // --- Whispering Sea Dark Theme ---
-val whisperSeaDarkPrimary = Color(0xFF8e9fab)            // Misty Blue-Gray
-val whisperSeaDarkPrimaryContainer = Color(0xFF29323A)   // Deep Slate
+val whisperSeaDarkPrimary = Color(0xFF8e9fab)
+val whisperSeaDarkPrimaryContainer = Color(0xFF29323A)
 
-val whisperSeaDarkSecondary = Color(0xFFC7BBB2)          // Warm Taupe
-val whisperSeaDarkSecondaryContainer = Color(0xFF3A302B) // Dark Clay
+val whisperSeaDarkSecondary = Color(0xFFC7BBB2)
+val whisperSeaDarkSecondaryContainer = Color(0xFF3A302B)
 
-val whisperSeaDarkTertiary = Color(0xFF9191b3)           // Steel Lavender
-val whisperSeaDarkTertiaryContainer = Color(0xFF2F2F3C)  // Deep Indigo Gray
+val whisperSeaDarkTertiary = Color(0xFF9191b3)
+val whisperSeaDarkTertiaryContainer = Color(0xFF2F2F3C)
 
-val whisperSeaDarkBackground = Color(0xFF121416)         // Almost Black
-val whisperSeaDarkSurface = Color(0xFF1C1E21)            // Graphite Gray
-val whisperSeaDarkSurfaceVariant = Color(0xFF2C2E31)     // Subdued Divider Gray
+val whisperSeaDarkBackground = Color(0xFF121416)
+val whisperSeaDarkSurface = Color(0xFF1C1E21)
+val whisperSeaDarkSurfaceVariant = Color(0xFF2C2E31)
 
-val whisperSeaDarkText = Color(0xFFE6E6E8)               // Mist White
-val whisperSeaDarkError = Color(0xFFE18C8C)              // Warm Muted Red
-val whisperSeaDarkErrorContainer = Color(0xFF3B2B2B)     // Deep Red Clay
+val whisperSeaDarkText = Color(0xFFE6E6E8)
+val whisperSeaDarkError = Color(0xFFE18C8C)
+val whisperSeaDarkErrorContainer = Color(0xFF3B2B2B)
 
 fun whisperingSeaDarkColors() = darkColorScheme(
     primary = whisperSeaDarkPrimary,
@@ -93,7 +93,7 @@ fun whisperingSeaDarkColors() = darkColorScheme(
     surface = whisperSeaDarkSurface,
     onSurface = whisperSeaDarkText,
     surfaceVariant = whisperSeaDarkSurfaceVariant,
-    onSurfaceVariant = Color(0xFFAAAAAA),  // Subtle light divider
+    onSurfaceVariant = Color(0xFFAAAAAA),
 
     error = whisperSeaDarkError,
     onError = whisperSeaDarkText,

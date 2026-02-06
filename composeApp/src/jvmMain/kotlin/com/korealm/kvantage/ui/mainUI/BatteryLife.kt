@@ -64,7 +64,7 @@ fun BatteryLife(
                 ) {
                     Text(
                         text = "0%",
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
                         modifier = Modifier
                     )
 
@@ -79,7 +79,7 @@ fun BatteryLife(
 
                     Text(
                         text = "100%",
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
                         modifier = Modifier
                     )
                 }

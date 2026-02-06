@@ -66,11 +66,7 @@ fun App(kvand: KvandClient) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(
-                        color =
-                            if (themeState.isDarkTheme) MaterialTheme.colorScheme.surface
-                            else MaterialTheme.colorScheme.surface
-                    )
+                    .background(MaterialTheme.colorScheme.surface)
             )
         }
 
@@ -79,9 +75,9 @@ fun App(kvand: KvandClient) {
             color = if (savedSettings.value.isAnimatedBackground) {
                 MaterialTheme.colorScheme.surface.copy(alpha = 0.8f)
             } else {
-                if (themeState.isDarkTheme) MaterialTheme.colorScheme.background else MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
+                if (themeState.isDarkTheme) MaterialTheme.colorScheme.background else MaterialTheme.colorScheme.surface.copy(alpha = 0.5f)
             },
-            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
+            border = BorderStroke((1.5).dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.06f)),
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
