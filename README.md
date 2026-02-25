@@ -1,16 +1,14 @@
-# 🌸 KVantage
-### Minimal control center for Lenovo laptops on Linux, inspired by Material UI aesthetics.
-
 ![KVantage logo](repo_images/main_logo.png)
 
 **KVantage** is a sleek and minimal desktop app designed to provide users of **Lenovo laptops** running Linux with easy access to essential device settings. Inspired by the clean aesthetics of **Material UI**, KVantage is built with **Kotlin + Compose Multiplatform for Desktop**, and aims to offer just the core features we care about. No bloat.
+
+### 🌸 Downloads:
+You can download the latest version [directly in this link](https://github.com/kosail/KVantage/releases/download/Release_v2.1.0/com.korealm.kvantage-linux-x64-2.1.0-release.jar), or from the [releases page](https://github.com/kosail/KVantage/releases).
 
 ---
 
 ## 🌻 Current Status
 The app is fully functional. The only thing that is not yet implemented is the option to set a customized battery threshold. By now, it is hardcoded to the default value (which is 80%).
-
-**The GUI allows toggling performance profiles, battery thresholds, and rapid charge settings.** It also shows the remaining battery life. **Designed to be intuitive, light, and visually appealing**. It has four available themes to choose from on settings and supports up to eight languages. It should change language based on your System's locale.
   <br><br>
 
 ### **Known Limitations:**
@@ -31,7 +29,7 @@ The app is fully functional. The only thing that is not yet implemented is the o
 ✅ **Rapid Charge Enable/Disable**  
 ✅ **Show remaining battery life (with option to hide it from settings)**  
 ✅ **Multiple dark and light themes**   
-✅ **Multiple languages available (English, Spanish and Japanese were made by me, while German, French, Portuguese, Korean and Chinese are IA translated)**  
+✅ **Multiple languages available (English, Spanish and Japanese were made by me, while German, French, Portuguese, Korean and Chinese are IA translated). It should change language based on your System's locale.**  
 ❌ **Custom threshold for battery conservation**: My laptop is a cheap one, and it has no option to set a custom threshold. I may implement this in the future if people ask for it, tho I could not guarantee it works as I would not be able to test it.  
 ✅ **Native image packaging** (Though I was not able to build a DEB/RPM/AppImage, I implemented a embedded installer that will copy the app into your local user bin folder, and it works fantastically.)
 
@@ -51,9 +49,7 @@ The app is fully functional. The only thing that is not yet implemented is the o
 ---
 ##  🪷 Backend
 At first, I thought of using the wonderful project [batmanager, by LevitatingBusinessMan](https://github.com/LevitatingBusinessMan/batmanager) which is exactly what this program aims for, but in CLI format. However, I know no Rust. I couldn't make it work on NixOS (dynamic linking executable issues), and by the moment I created this project, is my main Linux distro.<br><br>
-At the end, due to some limitations of the JVM and Kotlin Native, I decided to reimplement batmanager in Golang. More about this in the [backend section below](#backend).
-
-To keep things clean, I will maintain only the GUI app here, and kvand (the backend daemon) in another repository. In this repo you'll only find the native kvand executable. To see kvand source code, comments, and notes about it, please check the [daemon's repository here at my GitHub profile](https://github.com/kosail/Kvand).
+At the end, due to some limitations of the JVM and Kotlin Native, I decided to reimplement batmanager in Golang. To keep things clean, I will maintain only the GUI app here, and kvand (the backend daemon) in another repository. In this repo you'll only find the native kvand executable (and a source code file just as reference). To see kvand source code, comments, and notes about it, please check the [daemon's repository here at my GitHub profile](https://github.com/kosail/Kvand).
 
 
 ---
@@ -61,13 +57,15 @@ To keep things clean, I will maintain only the GUI app here, and kvand (the back
 ## 💐 Contributing
 Contributions are welcome! Feel free to fork the repository and submit pull requests. If you have ideas, suggestions, or bug reports, open an issue on GitHub.
 
----
+[//]: # (---)
 
-## 🎒 What I learned from this project
+[//]: # (## 🎒 What I learned from this project)
 
-Bro, I need to use loggers to keep track of what's happening with the app in all moment. It was HARD to follow the execution and debug, and moreover, due to the fact this app was tested running as root.
+[//]: # ()
+[//]: # (Bro, I need to use loggers to keep track of what's happening with the app in all moment. It was HARD to follow the execution and debug, and moreover, due to the fact this app was tested running as root.)
 
-I know, I played with fire. Sorry mom, I will not do that again. I will test my apps without root privileges from now on.
+[//]: # ()
+[//]: # (I know, I played with fire. Sorry mom, I will not do that again. I will test my apps without root privileges from now on.)
 
 ---
 
